@@ -12,6 +12,8 @@
         }
     ],
     "autoload": {
-        "psr-4": {"Scool\\Curriculum\\": "src"}
+        "psr-4": {
+            "Scool\\Curriculum\\": "src"
+            }
     }
 }
