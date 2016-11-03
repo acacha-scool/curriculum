@@ -1,0 +1,17 @@
+{
+    "name": "scool/curriculum",
+    "type": "library",
+    "require": {
+        "laravel/framework": "^5.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sergi Tur Badenas",
+            "email": "sergiturbadenas@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Scool\\Curriculum\\": "src"}
+    }
+}
