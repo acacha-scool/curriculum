@@ -2,7 +2,8 @@
     "name": "scool/curriculum",
     "type": "library",
     "require": {
-        "laravel/framework": "^5.3"
+        "laravel/framework": "^5.3",
+        "fzaninotto/faker": "^1.6"
     },
     "license": "MIT",
     "authors": [
@@ -12,8 +13,6 @@
         }
     ],
     "autoload": {
-        "psr-4": {
-            "Scool\\Curriculum\\": "src"
-            }
+        "psr-4": {"Scool\\Curriculum\\": "src"}
     }
 }

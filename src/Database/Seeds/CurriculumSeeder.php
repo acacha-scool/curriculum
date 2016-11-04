@@ -13,6 +13,17 @@ class CurriculumSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $this->seedStudies();
+        $this->seedCourses();
+    }
+
+    private function seedStudies()
+    {
+        factory();
+    }
+
+    private function seedCourses()
+    {
+
     }
 }
