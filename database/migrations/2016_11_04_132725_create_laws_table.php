@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStudyModulesTable extends Migration
+class CreateStudyLawsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateStudyModulesTable extends Migration
      */
     public function up()
     {
-        Schema::create('study_modules', function (Blueprint $table) {
+        Schema::create('laws', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
         });
@@ -26,6 +26,6 @@ class CreateStudyModulesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('study_modules');
+        Schema::dropIfExists('laws');
     }
 }

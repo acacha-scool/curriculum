@@ -24,6 +24,6 @@ class Speciality extends Model
      */
     public function study_submodules()
     {
-        return $this->belongsToMany(StudySubModule::class);
+        return $this->belongsToMany(Submodule::class);
     }
 }

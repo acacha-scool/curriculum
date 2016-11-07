@@ -27,11 +27,11 @@ class CreateSpecialitiesTable extends Migration
             $table->unique(['user_id', 'speciality_id']);
         });
 
-        Schema::create('speciality_studysubmodule', function (Blueprint $table) {
+        Schema::create('speciality_submodule', function (Blueprint $table) {
             $table->integer('speciality_id')->unsigned();
-            $table->integer('studysubmodule_id')->unsigned();
+            $table->integer('submodule_id')->unsigned();
             $table->timestamps();
-            $table->unique(['speciality_id', 'studysubmodule_id']);
+            $table->unique(['speciality_id', 'submodule_id']);
         });
 
     }
@@ -45,6 +45,6 @@ class CreateSpecialitiesTable extends Migration
     {
         Schema::dropIfExists('specialities');
         Schema::dropIfExists('speciality_user');
-        Schema::dropIfExists('speciality_studysubmodule');
+        Schema::dropIfExists('speciality_submodule');
     }
 }

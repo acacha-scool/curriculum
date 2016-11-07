@@ -15,14 +15,47 @@ class CurriculumSeeder extends Seeder
     {
         $this->seedStudies();
         $this->seedCourses();
+        $this->seedSpecialities();
+        $this->seedClassrooms();
+        $this->seedStudyModules();
+        $this->seedStudySubModules();
+        $this->seedStudyCycles();
+        $this->seedStudyLaws();
     }
 
     private function seedStudies()
     {
-        factory();
+//        factory();
     }
 
     private function seedCourses()
+    {
+
+    }
+
+    private function seedSpecialities()
+    {
+    }
+
+    private function seedClassrooms()
+    {
+
+    }
+
+    private function seedStudyModules()
+    {
+    }
+
+    private function seedStudySubModules()
+    {
+
+    }
+
+    private function seedStudyCycles()
+    {
+    }
+
+    private function seedStudyLaws()
     {
 
     }

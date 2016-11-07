@@ -3,14 +3,14 @@
 namespace Scool\Curriculum\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Scool\Curriculum\Traits\HasSpecialities;
+use Scool\Curriculum\Traits\HasSubmodules;
 
 /**
- * Class StudySubModule.
+ * Class Course.
  *
  * @package Scool\Curriculum\Models
  */
-class StudySubModule extends Model
+class Course extends Model
 {
-    use HasSpecialities;
+    use HasSubmodules;
 }
