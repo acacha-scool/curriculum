@@ -22,5 +22,5 @@ class Submodule extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'total_hours', 'week_hours', 'start_date', 'finish_date'];
 }
