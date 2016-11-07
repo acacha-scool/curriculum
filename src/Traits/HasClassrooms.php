@@ -4,6 +4,11 @@ namespace Scool\Curriculum\Traits;
 
 use Scool\Curriculum\Models\Classroom;
 
+/**
+ * Class HasClassrooms.
+ *
+ * @package Scool\Curriculum\Traits
+ */
 trait HasClassrooms
 {
     /**

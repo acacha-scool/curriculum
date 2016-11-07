@@ -3,6 +3,9 @@
 namespace Scool\Curriculum\Database\Seeds;
 
 use Illuminate\Database\Seeder;
+use Scool\Curriculum\Models\Classroom;
+use Scool\Curriculum\Models\Speciality;
+use Scool\Curriculum\Models\Submodule;
 
 class CurriculumSeeder extends Seeder
 {
@@ -18,14 +21,13 @@ class CurriculumSeeder extends Seeder
         $this->seedSpecialities();
         $this->seedClassrooms();
         $this->seedStudyModules();
-        $this->seedStudySubModules();
+        $this->seedStudySubmodules();
         $this->seedStudyCycles();
         $this->seedStudyLaws();
     }
 
     private function seedStudies()
     {
-//        factory();
     }
 
     private function seedCourses()
@@ -46,9 +48,23 @@ class CurriculumSeeder extends Seeder
     {
     }
 
-    private function seedStudySubModules()
+    private function seedStudySubmodules()
     {
-
+        factory(Submodule::class, 50)->create()->each(function($submodule) {
+            $submodule->specialities()->save(
+                factory(Speciality::class)->create()
+            );
+            $submodule->modules()->save(
+                factory(Module::class)->create()
+            );
+            $submodule->classrooms()->save(
+                factory(Classroom::class)->create()
+            );
+            $submodule->periods()->save(
+                factory(Period::class)->create()
+            );
+            $submodule->posts()->saveMany();
+        });
     }
 
     private function seedStudyCycles()

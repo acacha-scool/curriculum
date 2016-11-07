@@ -4,9 +4,39 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c6375814669df4ae6f1129091b8a2947",
-    "content-hash": "139834c10891ddca84b6d35faf0553f4",
+    "hash": "70e71c38b0b1103c0a6405db779d7ea9",
+    "content-hash": "6c556fb60c87a90aeddd2fbe07c5cd15",
     "packages": [
+        {
+            "name": "acacha/periods",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "/home/sergi/Code/acacha/periods",
+                "reference": "656efab3dffc99a751a2601623982c39e2d75771",
+                "shasum": null
+            },
+            "require": {
+                "fzaninotto/faker": "^1.6",
+                "laravel/framework": "^5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Acacha\\Periods\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sergi Tur Badenas",
+                    "email": "sergiturbadenas@gmail.com"
+                }
+            ],
+            "description": "Laravel package to manage periods of time"
+        },
         {
             "name": "classpreloader/classpreloader",
             "version": "3.0.0",
@@ -1919,7 +1949,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "acacha/periods": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

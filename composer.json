@@ -3,7 +3,8 @@
     "type": "library",
     "require": {
         "laravel/framework": "^5.3",
-        "fzaninotto/faker": "^1.6"
+        "fzaninotto/faker": "^1.6",
+        "acacha/periods": "dev-master"
     },
     "license": "MIT",
     "authors": [

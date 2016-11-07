@@ -4,7 +4,11 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateStudySubModulesTable extends Migration
+/**
+ * Class CreateSubmodulesTable.
+ *
+ */
+class CreateSubmodulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,6 +19,11 @@ class CreateStudySubModulesTable extends Migration
     {
         Schema::create('submodules', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('name');
+            $table->date('total_hours')->nullable();
+            $table->date('week_hours')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('finish_date')->nullable();
             $table->timestamps();
         });
 

@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Scool\Curriculum\Traits\HasModules;
 use Scool\Curriculum\Traits\HasSpecialities;
 use Scool\Curriculum\Traits\HasClassrooms;
+use Acacha\Periods\Traits\HasPeriods;
 
 /**
  * Class Submodule.
@@ -14,5 +15,12 @@ use Scool\Curriculum\Traits\HasClassrooms;
  */
 class Submodule extends Model
 {
-    use HasSpecialities, HasModules, HasClassrooms;
+    use HasSpecialities, HasModules, HasClassrooms, HasPeriods;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name'];
 }
