@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 use Scool\Curriculum\Models\Classroom;
 use Scool\Curriculum\Models\Speciality;
 use Scool\Curriculum\Models\Submodule;
+use Scool\Curriculum\Models\Module;
+use Acacha\Periods\Period;
 
 class CurriculumSeeder extends Seeder
 {
@@ -61,9 +63,12 @@ class CurriculumSeeder extends Seeder
                 factory(Classroom::class)->create()
             );
             $submodule->periods()->save(
-                factory(Period::class)->create()
+                factory(Period::class)->create(
+                    [ "periodable_id" => $submodule->id,
+                      "periodable_type" => get_class($submodule)
+                    ]
+                )
             );
-            $submodule->posts()->saveMany();
         });
     }
 

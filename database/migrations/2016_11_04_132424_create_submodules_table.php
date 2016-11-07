@@ -33,9 +33,9 @@ class CreateSubmodulesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('submodule_classroom', function (Blueprint $table) {
-            $table->integer('submodule_id')->unsigned();
+        Schema::create('classroom_submodule', function (Blueprint $table) {
             $table->integer('classroom_id')->unsigned();
+            $table->integer('submodule_id')->unsigned();
             $table->timestamps();
         });
 
@@ -44,6 +44,7 @@ class CreateSubmodulesTable extends Migration
             $table->integer('submodule_id')->unsigned();
             $table->timestamps();
         });
+
     }
 
     /**
@@ -55,7 +56,7 @@ class CreateSubmodulesTable extends Migration
     {
         Schema::dropIfExists('submodules');
         Schema::dropIfExists('module_submodule');
-        Schema::dropIfExists('submodule_classroom');
+        Schema::dropIfExists('classroom_submodule');
         Schema::dropIfExists('course_submodule');
     }
 }
