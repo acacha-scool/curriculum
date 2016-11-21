@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDepartmentsTable extends Migration
+class CreateFamiliesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,17 @@ class CreateDepartmentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('families', function (Blueprint $table) {
             $table->increments('id');
-
             $table->timestamps();
         });
 
-        Schema::create('department_family', function (Blueprint $table) {
-            $table->integer('department_id')->unsigned();
+        Schema::create('family_study', function (Blueprint $table) {
             $table->integer('family_id')->unsigned();
+            $table->integer('study_id')->unsigned();
             $table->timestamps();
-            $table->unique(['department_id', 'family_id']);
+            $table->unique(['family_id', 'study_id']);
         });
-
     }
 
     /**
@@ -35,6 +33,7 @@ class CreateDepartmentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('families');
+        Schema::dropIfExists('family_study');
     }
 }

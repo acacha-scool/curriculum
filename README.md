@@ -54,3 +54,7 @@ Traits to add to User class:
 
 - HasSpecialities
 - 
+
+## Seeders ##
+
+Private data: https://github.com/Institut-Ebre/ebreescool_seeders

@@ -17,8 +17,11 @@ class CreateStudiesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->integer('replaced_study_id')->unsigned();
+            $table->integer('law_id')->unsigned();
+            $table->integer('cicle_id')->unsigned();
             $table->timestamps();
         });
+
     }
 
     /**

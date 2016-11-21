@@ -5,7 +5,12 @@ namespace Scool\Curriculum\Models;
 use Illuminate\Database\Eloquent\Model;
 use Scool\Curriculum\Traits\HasStudies;
 
-class Cycle extends Model
+/**
+ * Class Family.
+ *
+ * @package Scool\Curriculum\Models
+ */
+class Family extends Model
 {
-    use HasStudies;
+    use HasStudies, HasDepartments;
 }

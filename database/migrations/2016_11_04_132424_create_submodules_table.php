@@ -23,7 +23,7 @@ class CreateSubmodulesTable extends Migration
             $table->date('total_hours')->nullable();
             $table->date('week_hours')->nullable();
             $table->date('start_date')->nullable();
-            $table->date('finish_date')->nullable();
+            $table->date('end_date')->nullable();
             $table->timestamps();
         });
 
