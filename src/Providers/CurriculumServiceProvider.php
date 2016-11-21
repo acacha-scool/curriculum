@@ -2,7 +2,7 @@
 
 namespace Scool\Curriculum\Providers;
 
-use Acacha\Periods\Providers\PeriodsServiceProvider;
+use Acacha\Names\Providers\NamesServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Scool\Curriculum\ScoolCurriculum;
 
@@ -21,6 +21,7 @@ class CurriculumServiceProvider extends ServiceProvider
         if (!defined('SCOOL_CURRICULUM_PATH')) {
             define('SCOOL_CURRICULUM_PATH', realpath(__DIR__.'/../../'));
         }
+        $this->app->register(NamesServiceProvider::class);
     }
 
     /**

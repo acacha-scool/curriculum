@@ -25,7 +25,7 @@ class SubmoduleTypesTableSeeder extends Seeder
         //Formació i orientació laboral
         $this->createTypeByName(SubmoduleType::FOL_TYPE);
         //Anglès
-        $this->createTypeByName(SubmoduleType::FOL_TYPE);
+        $this->createTypeByName(SubmoduleType::ANGLES_TYPE);
     }
 
     /**

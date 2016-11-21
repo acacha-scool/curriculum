@@ -4,9 +4,35 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c6375814669df4ae6f1129091b8a2947",
-    "content-hash": "139834c10891ddca84b6d35faf0553f4",
+    "hash": "9732898edc89ce5b0da364777c7e4a58",
+    "content-hash": "1ed8b3628e14d8114002aeec309ee860",
     "packages": [
+        {
+            "name": "acacha/names",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "../../acacha/names",
+                "reference": "244aa137ec940d7d6e159fca0086d98b3c44f05d",
+                "shasum": null
+            },
+            "require": {
+                "laravel/framework": "^5.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Acacha\\Names\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Sergi Tur Badenas",
+                    "email": "sergiturbadenas@gmail.com"
+                }
+            ],
+            "description": "Provides alternative names to Laravel models."
+        },
         {
             "name": "classpreloader/classpreloader",
             "version": "3.0.0",
@@ -1919,7 +1945,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "acacha/names": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
