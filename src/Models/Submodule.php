@@ -23,5 +23,24 @@ class Submodule extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'total_hours', 'week_hours', 'start_date', 'finish_date'];
+    protected $fillable = ['name', 'order' , 'total_hours', 'week_hours', 'start_date', 'finish_date'];
+
+    /**
+     * Get the type os study submodule.
+     */
+    public function type()
+    {
+        return $this->belongsTo(SubmoduleType::class);
+    }
+
+    /**
+     * Set the type.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setTypeAttribute($value)
+    {
+        $this->attributes['type'] = SubmoduleType::where(['name' => $value])->first()->id;
+    }
 }
