@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1479827645">
-  <project timestamp="1479827645">
+<coverage generated="1479828751">
+  <project timestamp="1479828751">
     <package name="Scool\Curriculum\Database\Seeds">
       <file name="/home/sergi/Code/scool/curriculum/src/Database/Seeds/CurriculumSeeder.php">
         <class name="CurriculumSeeder" namespace="Scool\Curriculum\Database\Seeds" fullPackage="Scool" package="Scool">

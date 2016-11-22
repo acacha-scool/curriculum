@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/acacha-scool/curriculum.svg?branch=master)](https://travis-ci.org/acacha-scool/curriculum)
+
+
 ## Installation ##
 
 In a Laravel project execute: 

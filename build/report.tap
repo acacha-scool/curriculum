@@ -1,1 +1,3 @@
 TAP version 13
+ok 1 - MisTestosTest::it_shows_submodules
+1..1
