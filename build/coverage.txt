@@ -1,0 +1,10 @@
+
+
+Code Coverage Report:    
+  2016-11-22 15:14:05    
+                         
+ Summary:                
+  Classes: 31.03% (9/29) 
+  Methods:  0.00% (0/51) 
+  Lines:    0.00% (0/244)
+
