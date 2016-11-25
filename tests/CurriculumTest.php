@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class MisTestos.
+ * Class CurriculumTest.
  */
-class MisTestosTest extends PHPUnit_Framework_TestCase
+class CurriculumTest extends PHPUnit_Framework_TestCase
 {
     /**
      * Mi prova tonta.
@@ -17,4 +17,6 @@ class MisTestosTest extends PHPUnit_Framework_TestCase
         // Assertion/Confirmacions
         $this->assertTrue(true);
     }
+
+
 }

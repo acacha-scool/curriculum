@@ -4,6 +4,10 @@ namespace Scool\Curriculum\Traits;
 
 use Scool\Curriculum\Models\Module;
 
+/**
+ * Class HasModules
+ * @package Scool\Curriculum\Traits
+ */
 trait HasModules
 {
     /**
@@ -13,4 +17,23 @@ trait HasModules
     {
         return $this->belongsToMany(Module::class);
     }
+
+    /**
+     * Add a module to modules.
+     *
+     * @param Module $module
+     */
+    public function addModule($module){
+        $this->modules()->save($module);
+    }
+
+    /**
+     * Add a module by id to modules.
+     *
+     * @param Module $module
+     */
+    public function addModuleById($module){
+        $this->modules()->save(Module::findOrFail($module));
+    }
+
 }

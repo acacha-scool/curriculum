@@ -11,7 +11,7 @@ composer require scool/curriculum
 
 Add to file **config/app.php** the CurriculumServiceProvider:
 
-```
+```php
 ...
  /*
  * Package Service Providers...

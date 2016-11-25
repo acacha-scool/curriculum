@@ -34,6 +34,7 @@ class CurriculumServiceProvider extends ServiceProvider
         $this->loadMigrations();
         $this->publishFactories();
         $this->publishConfig();
+        $this->publishTests();
     }
 
     /**
@@ -63,6 +64,14 @@ class CurriculumServiceProvider extends ServiceProvider
         );
         $this->mergeConfigFrom(
             SCOOL_CURRICULUM_PATH . '/config/curriculum.php', 'scool_curriculum'
+        );
+    }
+
+    private function publishTests()
+    {
+        $this->publishes(
+               [SCOOL_CURRICULUM_PATH .'/tests/CurriculumTest.php' => 'tests/CurriculumTest.php'] ,
+               'scool_curriculum'
         );
     }
 }
