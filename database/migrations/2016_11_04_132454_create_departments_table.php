@@ -31,6 +31,14 @@ class CreateDepartmentsTable extends Migration
             $table->unique(['department_id', 'family_id']);
         });
 
+        Schema::create('department_head', function (Blueprint $table) {
+            $table->integer('department_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->boolean('main')->default(false);
+            $table->timestamps();
+            $table->unique(['department_id', 'user_id']);
+        });
+
     }
 
     /**

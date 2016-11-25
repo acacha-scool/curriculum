@@ -4,7 +4,8 @@
     "require": {
         "laravel/framework": "^5.3",
         "fzaninotto/faker": "^1.6",
-        "acacha/names": "dev-master"
+        "acacha/names": "dev-master",
+        "scool/foundation": "dev-master"
     },
     "license": "MIT",
     "authors": [
