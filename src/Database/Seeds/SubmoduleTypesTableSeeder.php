@@ -18,13 +18,9 @@ class SubmoduleTypesTableSeeder extends Seeder
     public function run()
     {
         $this->createTypeByName(SubmoduleType::REGULAR_TYPE);
-        // Formació en centre de treball
         $this->createTypeByName(SubmoduleType::FCT_TYPE);
-        // Crèdit de sintesi o projecte
         $this->createTypeByName(SubmoduleType::PROJECT_TYPE);
-        //Formació i orientació laboral
         $this->createTypeByName(SubmoduleType::FOL_TYPE);
-        //Anglès
         $this->createTypeByName(SubmoduleType::ANGLES_TYPE);
     }
 
@@ -35,8 +31,8 @@ class SubmoduleTypesTableSeeder extends Seeder
      */
     private function createTypeByName($name)
     {
-        $type = new SubmoduleType();
-        $type->name = $name;
-        $type->save();
+        SubmoduleType::firstOrCreate([
+            'name' => $name
+        ]);
     }
 }

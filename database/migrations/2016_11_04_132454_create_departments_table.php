@@ -50,5 +50,6 @@ class CreateDepartmentsTable extends Migration
     {
         Schema::dropIfExists('departments');
         Schema::dropIfExists('department_family');
+        Schema::dropIfExists('department_head');
     }
 }

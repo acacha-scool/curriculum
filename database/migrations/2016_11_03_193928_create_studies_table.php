@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateStudiesTable
+ */
 class CreateStudiesTable extends Migration
 {
     /**
@@ -16,9 +19,9 @@ class CreateStudiesTable extends Migration
         Schema::create('studies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->integer('replaced_study_id')->unsigned();
             $table->integer('law_id')->unsigned();
-            $table->integer('cicle_id')->unsigned();
+            $table->string('state')->nullable();
+            $table->integer('replaces_study_id')->unsigned()->nullable();
             $table->timestamps();
         });
 
