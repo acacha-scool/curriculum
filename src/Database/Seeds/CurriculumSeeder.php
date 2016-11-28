@@ -24,40 +24,9 @@ class CurriculumSeeder extends Seeder
      */
     public function run()
     {
-        $this->seedStudySubmodules();
-        $this->call(DemoDepInformaticaSeeder::class);
+        //TODO
+//        $exitCode = Artisan::call('scool:migrate', [
+//            'filters' => 7
+//        ]);
     }
-
-    /**
-     * Seed study submodules
-     */
-    private function seedStudySubmodules()
-    {
-        factory(Submodule::class, 50)->create()->each(function($submodule) {
-
-            $submodule->periods()->save(
-                factory(Period::class)->create(
-                    [ "periodable_id" => $submodule->id,
-                        "periodable_type" => get_class($submodule)
-                    ]
-                )
-            );
-
-            $submodule->specialities()->save(
-                factory(Speciality::class)->create()
-            );
-
-            $submodule->modules()->save(
-                factory(Module::class)->create()
-            );
-
-            $submodule->classrooms()->save(
-                factory(Classroom::class)->create()
-            );
-            $submodule->courses()->save(
-                factory(Course::class)->create()
-            );
-        });
-    }
-
 }
