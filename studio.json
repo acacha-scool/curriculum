@@ -1,6 +1,7 @@
 {
     "version": 2,
     "paths": [
-        "../../acacha/names"
+        "../../acacha/names",
+        "../../scool/foundation"
     ]
 }

@@ -22,6 +22,9 @@ class CurriculumServiceProvider extends ServiceProvider
             define('SCOOL_CURRICULUM_PATH', realpath(__DIR__.'/../../'));
         }
         $this->app->register(NamesServiceProvider::class);
+
+        $this->app->bind(\Scool\Curriculum\Repositories\StudyRepository::class, \Scool\Curriculum\Repositories\StudyRepositoryEloquent::class);
+
     }
 
     /**
@@ -31,10 +34,26 @@ class CurriculumServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->defineRoutes();
         $this->loadMigrations();
         $this->publishFactories();
         $this->publishConfig();
         $this->publishTests();
+    }
+
+    /**
+     * Define the curriculum routes.
+     */
+    protected function defineRoutes()
+    {
+        if (!$this->app->routesAreCached()) {
+            $router = app('router');
+
+            $router->group(['namespace' => 'Scool\Curriculum\Http\Controllers'], function () {
+                require __DIR__.'/../Http/routes.php';
+            });
+
+        }
     }
 
     /**

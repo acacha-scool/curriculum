@@ -8,9 +8,10 @@
         "laravel"
     ],
     "require": {
-        "laravel/framework": "^5.3",
-        "fzaninotto/faker": "^1.6",
         "acacha/names": "dev-master",
+        "fzaninotto/faker": "^1.6",
+        "laravel/framework": "^5.3",
+        "prettus/l5-repository": "^2.6",
         "scool/foundation": "dev-master"
     },
     "require-dev": {
