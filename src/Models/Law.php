@@ -4,7 +4,7 @@ namespace Scool\Curriculum\Models;
 
 use Acacha\Names\Traits\Nameable;
 use Illuminate\Database\Eloquent\Model;
-use Scool\Curriculum\Traits\HasStudies;
+use Scool\Curriculum\Traits\HasManyStudies;
 
 /**
  * Class Law.
@@ -13,7 +13,7 @@ use Scool\Curriculum\Traits\HasStudies;
  */
 class Law extends Model
 {
-    use HasStudies,Nameable;
+    use HasManyStudies,Nameable;
 
     /**
      * LOE code.

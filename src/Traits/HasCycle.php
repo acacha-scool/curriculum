@@ -16,7 +16,7 @@ trait HasCycle
      */
     public function cycle()
     {
-        return $this->hasOne(Cycle::class);
+        return $this->hasOne(Cycle::class)->withTimestamps();
     }
 }
 

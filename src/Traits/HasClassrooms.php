@@ -16,6 +16,6 @@ trait HasClassrooms
      */
     public function classrooms()
     {
-        return $this->belongsToMany(Classroom::class);
+        return $this->belongsToMany(Classroom::class)->withTimestamps();
     }
 }

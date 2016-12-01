@@ -16,7 +16,7 @@ trait HasStudy
      */
     public function study()
     {
-        return $this->belongsTo(Study::class);
+        return $this->belongsTo(Study::class)->withTimestamps();
     }
 }
 

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuites>
-  <testsuite name="Scool curriculum Test Suite" tests="1" assertions="1" failures="0" errors="0" time="0.002403">
-    <testsuite name="MisTestosTest" file="/home/sergi/Code/scool/curriculum/tests/TestMisTestosTest.php" tests="1" assertions="1" failures="0" errors="0" time="0.002403">
-      <testcase name="it_shows_submodules" class="MisTestosTest" file="/home/sergi/Code/scool/curriculum/tests/TestMisTestosTest.php" line="13" assertions="1" time="0.002403"/>
-    </testsuite>
-  </testsuite>
-</testsuites>

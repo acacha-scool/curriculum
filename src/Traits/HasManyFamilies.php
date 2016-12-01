@@ -5,18 +5,18 @@ namespace Scool\Curriculum\Traits;
 use Scool\Curriculum\Models\Family;
 
 /**
- * Class HasFamilies.
+ * Class HasManyFamilies.
  *
  * @package Scool\Curriculum\Traits
  */
-trait HasFamilies
+trait HasManyFamilies
 {
     /**
      * Get the families associated with the model.
      */
     public function families()
     {
-        return $this->hasMany(Family::class);
+        return $this->hasMany(Family::class)->withTimestamps();
     }
 }
 

@@ -24,6 +24,13 @@ class CreateModulesTable extends Migration
             $table->timestamps();
             $table->unique(array('name', 'order','study_id'));
         });
+
+        Schema::create('course_module', function (Blueprint $table) {
+            $table->integer('course_id')->unsigned();
+            $table->integer('module_id')->unsigned();
+            $table->timestamps();
+            $table->unique(['course_id', 'module_id']);
+        });
     }
 
     /**
@@ -34,5 +41,6 @@ class CreateModulesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('modules');
+        Schema::dropIfExists('course_module');
     }
 }

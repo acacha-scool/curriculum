@@ -8,7 +8,7 @@ use Scool\Curriculum\Traits\HasCourses;
 use Scool\Curriculum\Traits\HasModules;
 use Scool\Curriculum\Traits\HasSpecialities;
 use Scool\Curriculum\Traits\HasClassrooms;
-use Scool\Curriculum\Traits\HasStudies;
+use Scool\Curriculum\Traits\HasManyStudies;
 
 /**
  * Class Submodule.
@@ -17,7 +17,7 @@ use Scool\Curriculum\Traits\HasStudies;
  */
 class Submodule extends Model
 {
-    use HasSpecialities, HasModules, HasClassrooms, HasCourses, HasStudies,Nameable;
+    use HasSpecialities, HasModules, HasClassrooms, HasCourses, HasManyStudies,Nameable;
 
     /**
      * The attributes that are mass assignable.

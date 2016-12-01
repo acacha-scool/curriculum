@@ -3,7 +3,7 @@
 namespace Scool\Curriculum\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Scool\Curriculum\Traits\HasStudies;
+use Scool\Curriculum\Traits\HasManyStudies;
 
 /**
  * Class Family.
@@ -12,5 +12,5 @@ use Scool\Curriculum\Traits\HasStudies;
  */
 class Family extends Model
 {
-    use HasStudies, HasDepartments;
+    use HasManyStudies, HasDepartments;
 }

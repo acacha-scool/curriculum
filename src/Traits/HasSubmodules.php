@@ -4,6 +4,11 @@ namespace Scool\Curriculum\Traits;
 
 use Scool\Curriculum\Models\Submodule;
 
+/**
+ * Class HasSubmodules.
+ *
+ * @package Scool\Curriculum\Traits
+ */
 trait HasSubmodules
 {
     /**
@@ -11,6 +16,6 @@ trait HasSubmodules
      */
     public function submodules()
     {
-        return $this->belongsToMany(Submodule::class);
+        return $this->belongsToMany(Submodule::class)->withTimestamps();
     }
 }

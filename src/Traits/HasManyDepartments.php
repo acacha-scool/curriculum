@@ -5,18 +5,18 @@ namespace Scool\Curriculum\Traits;
 use Scool\Curriculum\Models\Department;
 
 /**
- * Class HasDepartments.
+ * Class HasManyDepartments.
  *
  * @package Scool\Curriculum\Traits
  */
-trait HasDepartments
+trait HasManyDepartments
 {
     /**
      * Get the departments associated with the model.
      */
     public function departments()
     {
-        return $this->belongsToMany(Department::class)->withTimestamps();
+        return $this->hasMany(Department::class)->withTimestamps();
     }
 }
 

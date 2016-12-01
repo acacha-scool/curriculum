@@ -5,18 +5,18 @@ namespace Scool\Curriculum\Traits;
 use Scool\Curriculum\Models\Study;
 
 /**
- * Class HasStudies.
+ * Class HasManyStudies.
  *
  * @package Scool\Curriculum\Traits
  */
-trait HasStudies
+trait HasManyStudies
 {
     /**
      * Get the studies associated with the model.
      */
     public function studies()
     {
-        return $this->belongsToMany(Study::class)->withTimestamps();
+        return $this->hasMany(Study::class)->withTimestamps();
     }
 }
 

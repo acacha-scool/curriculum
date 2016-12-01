@@ -16,7 +16,7 @@ trait HasLaw
      */
     public function law()
     {
-        return $this->hasOne(Law::class);
+        return $this->hasOne(Law::class)->withTimestamps();
     }
 }
 
