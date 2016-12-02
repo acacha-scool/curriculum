@@ -1,7 +1,11 @@
 <?php
 
 namespace Scool\Curriculum\Stats;
+
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Container\Container as Application;
+use Illuminate\Support\Str;
+use Scool\Curriculum\Stats\Contracts\StatsRepository;
 
 /**
  * Class Stats.
@@ -11,39 +15,67 @@ use Illuminate\Database\Eloquent\Model;
 class Stats
 {
     /**
+     * The model from which obtain stats.
+     *
      * @var
      */
-    protected $model;
+    protected static $model;
 
     /**
+     * Laravel app.
+     *
+     * @var Application
+     */
+    protected $app;
+
+    /**
+     * The stats repository.
+     *
+     * @var StatsRepository
+     */
+    protected static $repository;
+
+    /**
+     * An array of valid stats.
+     *
      * @var
      */
-    protected $stats = ['total'];
+    protected static $stats = ['total'];
 
     /**
      * Stats constructor.
      *
      * @param $modelClass
+     * @param Application $app
+     * @param StatsRepository $repository
+     *
      */
-    public function __construct($modelClass)
+    public function __construct($modelClass,Application $app,StatsRepository $repository)
     {
+        $this->app = $app;
+        self::$repository = $repository;
         $model = $this->app->make($modelClass);
         if (!$model instanceof Model) {
             throw new \RuntimeException("Class {$modelClass} must be an instance of Illuminate\\Database\\Eloquent\\Model");
         }
-        $this->model = $model;
+        self::$model = $model;
         $this->initializeStats();
-        $this->initialize();
     }
 
-    protected function initializeStats()
+    /**
+     * Get model.
+     *
+     * @return mixed
+     */
+    public static function model()
     {
-        foreach ($this->relations() as $relation) {
-
-        }
+        return self::$model;
     }
 
-    protected function initialize()
+    /**
+     * TODO
+     */
+    protected function initializeStats()
     {
 
     }
@@ -60,90 +92,53 @@ class Stats
     /**
      * Create stats for a model
      *
-     * @param $model
+     * @param $modelClass
      * @return static
      */
     public static function of($modelClass)
     {
-        return new static($modelClass);
-    }
-
-    /**
-     * Dynamically retrieve attributes for stats object.
-     *
-     * @param  string  $key
-     * @return mixed
-     */
-    public function __get($key)
-    {
-        if (array_key_exists($key, $this->stats)) {
-            return $this->getStatValue($key);
-        }
-
-        if (method_exists(self::class, $key)) {
-            return;
-        }
+        $repo = resolve(StatsRepository::class);
+        $repo->setModel(app()->make($modelClass));
+        return new static($modelClass,app(), $repo);
     }
 
     /**
      * Get value for a specific stat.
      *
-     * @param $key
+     * @param $stat
      * @return mixed|void
+     * @throws \Exception
      */
-    protected function getStatValue($key)
+    protected static function getStatValue($stat)
     {
-        return $this->statIsCached($key) ? $this->getCachedStatValue($key) : $this->getCalculatedStatValue($key);
-    }
-
-    protected function getCachedStatValue($key)
-    {
-
-    }
-    /**
-     * Get calculated state value.
-     */
-    protected function getCalculatedStatValue($key)
-    {
-        $method = 'calculate'.Str::studly($key);
-
-        if(! method_exists($this, 'get'.$method)) {
-            return;
+        if(! method_exists(Stats::class, $method = 'calculate'.Str::studly($stat))) {
+            throw new \Exception;
         }
-        return $this->{$method};
+        return call_user_func([Stats::class, $method]);
     }
 
     /**
      * Calculate total number of registries for this model
      */
-    public function calculateTotal()
+    protected static function calculateTotal()
     {
-        return $this->model->all()->count();
-        //TODO: try $this->model->count() direct no select, no collection -> faster?;
-    }
-
-
-    /**
-     * Refresh cached stats
-     */
-    public function refresh()
-    {
-        //TODO
+        $repo = self::$repository;
+        return $repo->total();
     }
 
     /**
-     * Handle dynamic method calls for stats object.
+     * Handle dynamic static method calls for stats object.
      *
-     * @param  string  $method
-     * @param  array  $parameters
-     * @return mixed
+     * @param $name
+     * @param $arguments
+     * @return mixed|null|void
      */
-    public function __call($method, $parameters)
+    public static function __callStatic($name, $arguments)
     {
-
+        if (in_array($name, self::$stats)) {
+            return self::getStatValue($name);
+        }
+        return null;
     }
-
-
-
 
 }

@@ -2,8 +2,10 @@
 
 namespace Scool\Curriculum\Repositories;
 
+use Prettus\Repository\Contracts\CacheableInterface;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
+use Prettus\Repository\Traits\CacheableRepository;
 use Scool\Curriculum\Models\Study;
 use Scool\Curriculum\Validators\StudyValidator;
 
@@ -11,8 +13,10 @@ use Scool\Curriculum\Validators\StudyValidator;
  * Class StudyRepositoryEloquent
  * @package namespace App\Repositories;
  */
-class StudyRepositoryEloquent extends BaseRepository implements StudyRepository
+class StudyRepositoryEloquent extends BaseRepository implements StudyRepository,CacheableInterface
 {
+    use CacheableRepository;
+
     /**
      * Specify Model class name
      *

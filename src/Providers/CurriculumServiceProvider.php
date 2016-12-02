@@ -5,6 +5,9 @@ namespace Scool\Curriculum\Providers;
 use Acacha\Names\Providers\NamesServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Scool\Curriculum\ScoolCurriculum;
+use Scool\Curriculum\Stats\CacheableStatsRepository;
+use Scool\Curriculum\Stats\Contracts\StatsRepository as StatsRepositoryInterface;
+use Scool\Curriculum\Stats\StatsRepository;
 
 /**
  * Class CurriculumServiceProvider.
@@ -24,6 +27,12 @@ class CurriculumServiceProvider extends ServiceProvider
         $this->app->register(NamesServiceProvider::class);
 
         $this->app->bind(\Scool\Curriculum\Repositories\StudyRepository::class, \Scool\Curriculum\Repositories\StudyRepositoryEloquent::class);
+
+        $this->app->bind(StatsRepositoryInterface::class,function() {
+            return new CacheableStatsRepository(new StatsRepository());
+        });
+
+
 
     }
 
