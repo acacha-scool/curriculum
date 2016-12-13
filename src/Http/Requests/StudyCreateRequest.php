@@ -18,8 +18,25 @@ class StudyCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+        //Who can create study:
+        //- Admin
+        //- Certain roles
+
+        // Only allow logged in users
+        // return \Auth::check();
     }
+    
+    // OPTIONAL OVERRIDE
+    public function forbiddenResponse()
+    {
+        // Optionally, send a custom response on authorize failure
+        // (default is to just redirect to initial page with errors)
+        //
+        // Can return a response, a view, a redirect, or whatever else
+        return Response::make('Permission denied foo!', 403);
+    }
+
 
     /**
      * Get the validation rules that apply to the request.

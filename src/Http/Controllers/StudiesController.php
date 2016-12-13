@@ -43,14 +43,12 @@ class StudiesController extends Controller
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $studies = $this->repository->all();
-
         if (request()->wantsJson()) {
 
             return response()->json([
                 'data' => $studies,
             ]);
         }
-
         return view('studies.index', compact('studies'));
     }
 
@@ -63,7 +61,6 @@ class StudiesController extends Controller
      */
     public function store(StudyCreateRequest $request)
     {
-
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
