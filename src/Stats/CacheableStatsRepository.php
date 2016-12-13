@@ -52,10 +52,18 @@ class CacheableStatsRepository extends BaseStatsRepository
     }
 
     /**
-     *
+     * Calculate redis prefix key.
      */
     protected function prefix()
     {
         return str_replace("\\" ,".", get_class($this->repository->getModel()));
     }
+
+    /**
+     * Refresh/flush cache keys related with stats for this model.
+     */
+    public function refresh() {
+        Cache::forget($this->prefix() . '.stats.total');
+    }
+
 }

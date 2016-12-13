@@ -43,6 +43,13 @@ class Stats
     protected static $stats = ['total'];
 
     /**
+     * An array of model relations.
+     *
+     * @var
+     */
+    protected static $relations = [];
+
+    /**
      * Stats constructor.
      *
      * @param $modelClass
@@ -80,6 +87,8 @@ class Stats
 
     }
 
+
+
     /**
      * Get model relations as array.
      *
@@ -111,10 +120,11 @@ class Stats
      */
     protected static function getStatValue($stat)
     {
-        if(! method_exists(Stats::class, $method = 'calculate'.Str::studly($stat))) {
-            throw new \Exception;
+        if( method_exists(Stats::class, $method = 'calculate'.Str::studly($stat))) {
+            return call_user_func([Stats::class, $method]);
         }
-        return call_user_func([Stats::class, $method]);
+
+        throw new \Exception;
     }
 
     /**
@@ -125,6 +135,8 @@ class Stats
         $repo = self::$repository;
         return $repo->total();
     }
+
+
 
     /**
      * Handle dynamic static method calls for stats object.
@@ -138,7 +150,45 @@ class Stats
         if (in_array($name, self::$stats)) {
             return self::getStatValue($name);
         }
+//        dd($name);
+//        dd(self::getRelationStats());
+        if (in_array($name,self::getRelationStats())) {
+            return self::getRelationStatValue($name);
+        }
+        dd("shit");
+
         return null;
+    }
+
+    /**
+     * Get relation stats method names.
+     *
+     * @return array
+     */
+    protected static function getRelationStats()
+    {
+        return (collect(static::$relations)->map(function ($name) {
+            return 'total' . Str::studly($name);
+        }))->toArray();
+    }
+
+    /**
+     * TODO
+     * @return string
+     */
+    protected static function getRelationStatValue($name) {
+        //TODO
+        return 50;
+    }
+
+    /**
+     * Refresh/flush keys in cache.
+     */
+    protected static function refresh() {
+        if (is_a(self::$repository,CacheableStatsRepository::class)) {
+            $repo = self::$repository;
+            $repo->refresh();
+        }
     }
 
 }
