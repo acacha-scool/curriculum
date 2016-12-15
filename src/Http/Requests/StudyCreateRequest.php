@@ -26,7 +26,7 @@ class StudyCreateRequest extends FormRequest
         // Only allow logged in users
         // return \Auth::check();
     }
-    
+
     // OPTIONAL OVERRIDE
     public function forbiddenResponse()
     {
