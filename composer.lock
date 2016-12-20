@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a8e0752dc6e985b9607b9f61a9e9edfb",
-    "content-hash": "a3564cf1cc44c9a237ec9aa85981ed57",
+    "hash": "c98293fa5de7375b0b3364d3006952b6",
+    "content-hash": "58112ee542fe34f636cffda2d19bbd36",
     "packages": [
         {
             "name": "acacha/names",
@@ -32,6 +32,54 @@
                 }
             ],
             "description": "Provides alternative names to Laravel models."
+        },
+        {
+            "name": "acacha/stateful-eloquent",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "../../acacha/stateful-eloquent",
+                "reference": "8b973aa58f86932c4dab5f5d5f3046f10a862b1b",
+                "shasum": null
+            },
+            "require": {
+                "laravel/framework": "5.3.*",
+                "php": ">=5.6.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Acacha\\Stateful\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "MikeRice\\Stateful\\Tests\\": "tests"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mike Rice",
+                    "email": "mike.hj.rice@gmail.com"
+                },
+                {
+                    "name": "Sergi Tur Badenas",
+                    "email": "sergiturbadenas@gmail.com"
+                }
+            ],
+            "description": "State machines for Eloquent classes",
+            "homepage": "https://github.com/mikerice/stateful-eloquent",
+            "keywords": [
+                "eloquent",
+                "laravel",
+                "statemachine"
+            ]
         },
         {
             "name": "classpreloader/classpreloader",
@@ -3485,7 +3533,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "acacha/names": 20,
-        "scool/foundation": 20
+        "scool/foundation": 20,
+        "acacha/stateful-eloquent": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

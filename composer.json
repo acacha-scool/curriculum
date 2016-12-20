@@ -12,7 +12,8 @@
         "fzaninotto/faker": "^1.6",
         "laravel/framework": "^5.3",
         "prettus/l5-repository": "^2.6",
-        "scool/foundation": "dev-master"
+        "scool/foundation": "dev-master",
+        "acacha/stateful-eloquent": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "^5.6",

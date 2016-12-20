@@ -2,6 +2,7 @@
     "version": 2,
     "paths": [
         "../../acacha/names",
+        "../../acacha/stateful-eloquent",
         "../../scool/foundation"
     ]
 }

@@ -3,6 +3,7 @@
 namespace Scool\Curriculum\Providers;
 
 use Acacha\Names\Providers\NamesServiceProvider;
+use Acacha\Stateful\Providers\StatefulServiceProvider;
 use Illuminate\Support\ServiceProvider;
 use Scool\Curriculum\ScoolCurriculum;
 use Scool\Curriculum\Stats\CacheableStatsRepository;
@@ -24,7 +25,9 @@ class CurriculumServiceProvider extends ServiceProvider
         if (!defined('SCOOL_CURRICULUM_PATH')) {
             define('SCOOL_CURRICULUM_PATH', realpath(__DIR__.'/../../'));
         }
-        $this->app->register(NamesServiceProvider::class);
+        $this->registerNamesServiceProvider();
+
+        $this->registerStatefulEloquentServiceProvider();
 
         $this->app->bind(\Scool\Curriculum\Repositories\StudyRepository::class, \Scool\Curriculum\Repositories\StudyRepositoryEloquent::class);
 
@@ -32,8 +35,24 @@ class CurriculumServiceProvider extends ServiceProvider
             return new CacheableStatsRepository(new StatsRepository());
         });
 
+    }
 
+    /**
+     * Register acacha/stateful-eloquent Service Provider.
+     *
+     */
+    protected function registerStatefulEloquentServiceProvider()
+    {
+        $this->app->register(StatefulServiceProvider::class);
+    }
 
+    /**
+     * Register acacha/names Service Provider.
+     *
+     */
+    protected function registerNamesServiceProvider()
+    {
+        $this->app->register(NamesServiceProvider::class);
     }
 
     /**
@@ -95,6 +114,9 @@ class CurriculumServiceProvider extends ServiceProvider
         );
     }
 
+    /**
+     * Publich tests.
+     */
     private function publishTests()
     {
         $this->publishes(
@@ -102,4 +124,6 @@ class CurriculumServiceProvider extends ServiceProvider
                'scool_curriculum'
         );
     }
+
+
 }
