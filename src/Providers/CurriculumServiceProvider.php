@@ -29,12 +29,23 @@ class CurriculumServiceProvider extends ServiceProvider
 
         $this->registerStatefulEloquentServiceProvider();
 
-        $this->app->bind(\Scool\Curriculum\Repositories\StudyRepository::class, \Scool\Curriculum\Repositories\StudyRepositoryEloquent::class);
+        $this->bindRepositories();
 
         $this->app->bind(StatsRepositoryInterface::class,function() {
             return new CacheableStatsRepository(new StatsRepository());
         });
 
+    }
+
+    /**
+     * Bind repositories
+     */
+    protected function bindRepositories()
+    {
+        $this->app->bind(
+            \Scool\Curriculum\Repositories\StudyRepository::class,
+            \Scool\Curriculum\Repositories\StudyRepositoryEloquent::class);
+        //:end-bindings:
     }
 
     /**

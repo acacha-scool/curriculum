@@ -4,11 +4,10 @@ namespace Scool\Curriculum\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\DepartmentCreateRequest;
-use App\Http\Requests\DepartmentUpdateRequest;
+use Scool\Curriculum\Http\Requests\DepartmentCreateRequest;
+use Scool\Curriculum\Http\Requests\DepartmentUpdateRequest;
 use Scool\Curriculum\Repositories\DepartmentRepository;
 use Scool\Curriculum\Validators\DepartmentValidator;
 
