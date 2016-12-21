@@ -46,7 +46,8 @@ class StudyCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required',
+            'law_id' => 'required',
         ];
     }
 }

@@ -71,7 +71,7 @@ class StudiesController extends Controller
                 'message' => 'Study created.',
                 'data'    => $study->toArray(),
             ];
-
+            // XHR : API petició ajax XML HTTP Request
             if ($request->wantsJson()) {
 
                 return response()->json($response);
