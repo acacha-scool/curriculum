@@ -4,6 +4,8 @@ namespace Scool\Curriculum\Models;
 
 use Acacha\Names\Traits\Nameable;
 use Illuminate\Database\Eloquent\Model;
+use Prettus\Repository\Contracts\Transformable;
+use Prettus\Repository\Traits\TransformableTrait;
 use Scool\Curriculum\Traits\HasManyFamilies;
 use Scool\Curriculum\Traits\HasStudies;
 use Scool\Foundation\User;
@@ -13,9 +15,9 @@ use Scool\Foundation\User;
  *
  * @package Scool\Curriculum\Models
  */
-class Department extends Model
+class Department extends Model implements Transformable
 {
-    use HasManyFamilies, Nameable, HasStudies;
+    use TransformableTrait;
 
     /**
      * The attributes that are mass assignable.
