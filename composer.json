@@ -11,7 +11,7 @@
         "acacha/names": "dev-master",
         "fzaninotto/faker": "^1.6",
         "laravel/framework": "^5.3",
-        "prettus/l5-repository": "^2.6",
+        "acacha/l5-repository": "dev-master",
         "scool/foundation": "dev-master",
         "acacha/stateful-eloquent": "dev-master"
     },
