@@ -15,8 +15,15 @@ class CreateClassroomsTable extends Migration
     {
         Schema::create('classrooms', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->timestamps();
+        });
+
+        Schema::create('classroom_course', function (Blueprint $table) {
+            $table->integer('classroom_id')->unsigned();
+            $table->integer('course_id')->unsigned();
+            $table->timestamps();
+            $table->unique(['classroom_id', 'course_id']);
         });
     }
 
@@ -28,5 +35,6 @@ class CreateClassroomsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('classrooms');
+        Schema::dropIfExists('classroom_course');
     }
 }

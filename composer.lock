@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5341f99ed121cc1f7573b45dd5a24721",
-    "content-hash": "d962e074b9861142105c6ed85df3248e",
+    "hash": "8df7aecc1ebe2947d7d07cadd3758e8b",
+    "content-hash": "335ce95a0c25b8bb0250405960bb2654",
     "packages": [
         {
             "name": "acacha/l5-repository",
-            "version": "2.6.6",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/acacha/l5-repository.git",
-                "reference": "05945e652bfdacd456128d69bcae91701ccc9e32"
+                "reference": "84ae36335f08620bdaefa58c916dfd9cd8d81b33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/acacha/l5-repository/zipball/05945e652bfdacd456128d69bcae91701ccc9e32",
-                "reference": "05945e652bfdacd456128d69bcae91701ccc9e32",
+                "url": "https://api.github.com/repos/acacha/l5-repository/zipball/84ae36335f08620bdaefa58c916dfd9cd8d81b33",
+                "reference": "84ae36335f08620bdaefa58c916dfd9cd8d81b33",
                 "shasum": ""
             },
             "require": {
@@ -55,17 +55,23 @@
                     "name": "Anderson Andrade",
                     "email": "contato@andersonandra.de",
                     "role": "Developer"
+                },
+                {
+                    "name": "Sergi Tur Badenas",
+                    "email": "sergiturbadenas@gmail.com",
+                    "role": "Developer"
                 }
             ],
-            "description": "Laravel 5 - Repositories to  the database layer",
+            "description": "Laravel 5 - Repositories to the database layer. Based on prettus/l5-repository",
             "keywords": [
+                "acacha",
                 "cache",
                 "eloquent",
                 "laravel",
                 "model",
                 "repository"
             ],
-            "time": "2016-06-27 10:43:22"
+            "time": "2016-12-24 13:04:47"
         },
         {
             "name": "acacha/names",
@@ -1260,23 +1266,24 @@
         },
         {
             "name": "swiftmailer/swiftmailer",
-            "version": "v5.4.4",
+            "version": "v5.4.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swiftmailer/swiftmailer.git",
-                "reference": "545ce9136690cea74f98f86fbb9c92dd9ab1a756"
+                "reference": "cd142238a339459b10da3d8234220963f392540c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/545ce9136690cea74f98f86fbb9c92dd9ab1a756",
-                "reference": "545ce9136690cea74f98f86fbb9c92dd9ab1a756",
+                "url": "https://api.github.com/repos/swiftmailer/swiftmailer/zipball/cd142238a339459b10da3d8234220963f392540c",
+                "reference": "cd142238a339459b10da3d8234220963f392540c",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3"
             },
             "require-dev": {
-                "mockery/mockery": "~0.9.1"
+                "mockery/mockery": "~0.9.1",
+                "symfony/phpunit-bridge": "~3.2"
             },
             "type": "library",
             "extra": {
@@ -1309,7 +1316,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2016-11-24 01:01:23"
+            "time": "2016-12-29 10:02:40"
         },
         {
             "name": "symfony/console",
@@ -2694,16 +2701,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "5.7.4",
+            "version": "5.7.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "af91da3f2671006ff5d0628023de3b7ac4d1ef09"
+                "reference": "50fd2be8f3e23e91da825f36f08e5f9633076ffe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/af91da3f2671006ff5d0628023de3b7ac4d1ef09",
-                "reference": "af91da3f2671006ff5d0628023de3b7ac4d1ef09",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/50fd2be8f3e23e91da825f36f08e5f9633076ffe",
+                "reference": "50fd2be8f3e23e91da825f36f08e5f9633076ffe",
                 "shasum": ""
             },
             "require": {
@@ -2772,7 +2779,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2016-12-13 16:19:44"
+            "time": "2016-12-28 07:18:51"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -3534,6 +3541,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "acacha/names": 20,
+        "acacha/l5-repository": 20,
         "scool/foundation": 20,
         "acacha/stateful-eloquent": 20
     },
