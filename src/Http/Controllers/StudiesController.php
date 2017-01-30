@@ -39,7 +39,7 @@ class StudiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(StudyBrowseRequest $request)
     {
         $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
         $studies = $this->repository->all();

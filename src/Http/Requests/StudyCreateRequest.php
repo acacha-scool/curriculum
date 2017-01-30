@@ -18,13 +18,7 @@ class StudyCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        //Who can create study:
-        //- Admin
-        //- Certain roles
-        return true;
-
-        // Only allow logged in users
-        // return \Auth::check();
+        return Auth::user()->can('create studies');
     }
 
     // OPTIONAL OVERRIDE

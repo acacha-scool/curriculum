@@ -18,7 +18,7 @@ class StudyUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::user()->can('edit studies');
     }
 
     /**
