@@ -3,7 +3,7 @@
 Route::group([
     'middleware' => 'web'], function() {
         Route::group(['middleware' => 'auth'], function () {
-            Route::resource('studies', 'StudiesController');
+            require __DIR__.'/common_routes.php';
         });
 });
 
@@ -13,6 +13,6 @@ Route::group([
 ], function() {
     //Route::group(['prefix' => 'v1','middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'v1'], function () {
-        Route::resource('studies', 'StudiesController');
+        require __DIR__.'/common_routes.php';
     });
 });
