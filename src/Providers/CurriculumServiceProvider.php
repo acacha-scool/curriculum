@@ -77,6 +77,7 @@ class CurriculumServiceProvider extends ServiceProvider
     {
         $this->defineRoutes();
         $this->loadMigrations();
+        $this->loadViews();
         $this->publishFactories();
         $this->publishConfig();
         $this->publishTests();
@@ -95,6 +96,14 @@ class CurriculumServiceProvider extends ServiceProvider
             });
 
         }
+    }
+
+    /**
+     * Load package views.
+     */
+    private function loadViews()
+    {
+        $this->loadViewsFrom(SCOOL_CURRICULUM_PATH . '/resources/views', 'curriculum');
     }
 
     /**
