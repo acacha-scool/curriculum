@@ -1,4 +1,4 @@
 <?php
 
-Route::resource('studies', 'StudiesController');
-//:end-routes   :
+        Route::resource('studies', 'StudiesController');
+        //:end-routes:
