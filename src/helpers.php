@@ -11,11 +11,10 @@ if (! function_exists('seed_specialities')) {
      */
     function seed_specialities()
     {
-        Speciality::create(['code' => 'CAS' , name => 'Curs Accés Grau Superior', description => '']);
-        Speciality::create(['code' => '505' , name => 'Curs Accés Grau Superior', description => '']);
-        Speciality::create(['code' => 'AN' , name => 'Curs Accés Grau Superior', description => '']);
-        Speciality::create(['code' => 'MA' , name => 'Curs Accés Grau Superior', description => '']);
-        Speciality::create(['code' => '507' , name => 'Informàtica', description => '']);
+        Speciality::create(['code' => 'CAS' , 'name' => 'Curs Accés Grau Superior', 'description' => '']);
+        Speciality::create(['code' => '505' , 'name' => 'Curs Accés Grau Superior', 'description' => '']);
+        Speciality::create(['code' => 'AN' , 'name' => 'Curs Accés Grau Superior', 'description' => '']);
+        Speciality::create(['code' => 'MA' , 'name' => 'Curs Accés Grau Superior', 'description' => '']);
+        Speciality::create(['code' => '507' , 'name' => 'Informàtica', 'description' => '']);
     }
 }
-
