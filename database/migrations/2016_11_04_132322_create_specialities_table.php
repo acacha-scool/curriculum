@@ -17,6 +17,7 @@ class CreateSpecialitiesTable extends Migration
             $table->increments('id');
             $table->integer('code');
             $table->string('name');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
 
