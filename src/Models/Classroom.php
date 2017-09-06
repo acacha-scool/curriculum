@@ -21,5 +21,5 @@ class Classroom extends Model
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['code','name','location_id'];
 }
