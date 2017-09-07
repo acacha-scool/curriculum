@@ -1,6 +1,7 @@
 <?php
 
 use Scool\Curriculum\Models\Classroom;
+use Scool\Curriculum\Models\Department;
 use Scool\Curriculum\Models\Family;
 use Scool\Curriculum\Models\Law;
 use Scool\Curriculum\Models\Speciality;
@@ -168,6 +169,7 @@ if (! function_exists('seed_specialities')) {
     function seed_specialities()
     {
         //Depends on nothing
+        // TODO: name->shortname and add name as full name!
         first_or_create_speciality('CAS' , 'Curs Accés Grau Superior', '');
         first_or_create_speciality('AN' ,  'Anglès', '');
         first_or_create_speciality('MA' ,  'Matemàtiques', '');
@@ -264,11 +266,59 @@ if (! function_exists('seed_families')) {
             obtainSpecialityIdByCode('507'),
             obtainSpecialityIdByCode('627')
         ]);
-        first_or_create_family('SSCC','Serveis socioculturals' , "Família de serveis socioculturals i a la comunitat", [
+        first_or_create_family('SSC','Serveis socioculturals' , "Família de serveis socioculturals i a la comunitat", [
             obtainSpecialityIdByCode('508'),
             obtainSpecialityIdByCode('625')
         ]);
-        //TODO
+        first_or_create_family('ADM','Administració' , "Família d'administració i gestió", [
+            obtainSpecialityIdByCode('501'),
+            obtainSpecialityIdByCode('622')
+        ]);
+        first_or_create_family('COM','Comerç' , "Família de comerç i marqueting", [
+            obtainSpecialityIdByCode('510'),
+            obtainSpecialityIdByCode('621')
+        ]);
+        first_or_create_family('ART','Arts gràfiques' , "Família d'arts gràfiques", [
+            obtainSpecialityIdByCode('522'),
+            obtainSpecialityIdByCode('623')
+        ]);
+        //TODO subdivide ok
+        first_or_create_family('ELE','Electricitat' , "Família d'electricitat i electrònica", [
+            obtainSpecialityIdByCode('602'),
+            obtainSpecialityIdByCode('605'),
+            obtainSpecialityIdByCode('606')
+        ]);
+        //TODO subdivide ok
+        first_or_create_family('ENE','Energia' , "Energia i aigua", [
+            obtainSpecialityIdByCode('602'),
+            obtainSpecialityIdByCode('605'),
+            obtainSpecialityIdByCode('606')
+        ]);
+
+        //Todo: check if is ok!!1
+        first_or_create_family('MEC','Mecànica' , "Familia de fabricació mecànica", [
+            obtainSpecialityIdByCode('512'),
+        ]);
+        //Todo: check if is ok!!1
+        first_or_create_family('MAN','Manteniment' , "Familia d'instal·lació i manteniment", [
+            obtainSpecialityIdByCode('611'),
+        ]);
+
+        first_or_create_family('EDF','Edificació' , "Familia d'edificació i obra civil", [
+            obtainSpecialityIdByCode('504'),
+            obtainSpecialityIdByCode('612'),
+        ]);
+
+        first_or_create_family('FOL','FOL' , "Familia  d'orientació laboral", [
+            obtainSpecialityIdByCode('504'),
+            obtainSpecialityIdByCode('612'),
+        ]);
+
+        first_or_create_family('CAS','CAS' , "Familia cursos d'accés", [
+            obtainSpecialityIdByCode('CAS'),
+            obtainSpecialityIdByCode('AN'),
+            obtainSpecialityIdByCode('MA'),
+        ]);
     }
 }
 
@@ -291,18 +341,24 @@ if (! function_exists('first_or_create_department')) {
     /**
      * Create department if not exists and return new o already existing department.
      *
+     * @param $code
+     * @param $shortname
+     * @param $name
+     * @param $families
+     * @param $location
      * @return mixed
      */
-    function first_or_create_department($code, $shortname, $name, $families)
+    function first_or_create_department($code, $shortname, $name, $families, $location)
     {
         try {
             $department = Department::create([
                 'code' => $code,
                 'shortname' => $shortname,
-                'name' => $name
+                'name' => $name,
+                'location_id' => $location
             ]);
 
-            $department->families(sync($families));
+            $department->families()->sync($families);
 
             return $department;
         } catch (Illuminate\Database\QueryException $e) {
@@ -323,29 +379,46 @@ if (! function_exists('seed_departments')) {
     function seed_departments()
     {
         seed_families();
-        //Depends on: caps de departament i/o caps de seminari | location | families | studies relacionats
+        seed_locations();
+        //Depends on: location | families . Department head and cap seminari added on staff module
         first_or_create_department("ADM","Administració","Departament d'administració i gestió",
-            [obtainFamilyIdByCode('ADM')]);
-        first_or_create_department("INF","Informàtica","Departament d'informàtica",
-            [obtainFamilyIdByCode('INF')]);
-        first_or_create_department("FOL","Orientació laboral","Departament de formació i orientació laboral" ,
-            [obtainFamilyIdByCode('FOL')]);
-        first_or_create_department("ELE","Electricitat","Departament d'electricitat i electrònica",
-            [obtainFamilyIdByCode('ELE')]);
+            [obtainFamilyIdByCode('ADM')],
+            obtainLocationIdByCode('TODO'));
         first_or_create_department("COM","Comerç","Departament de comerç i màrqueting",
-            [obtainFamilyIdByCode('COM')]);
+            [obtainFamilyIdByCode('COM')],
+            obtainLocationIdByCode('TODO'));
+        first_or_create_department("INF","Informàtica","Departament d'informàtica",
+            [obtainFamilyIdByCode('INF')],
+            obtainLocationIdByCode('TODO'));
+        first_or_create_department("ELE","Electricitat","Departament d'electricitat i electrònica",[
+            obtainFamilyIdByCode('ELE'),
+            obtainFamilyIdByCode('ENE'),
+            ],
+            obtainLocationIdByCode('TODO'));
         first_or_create_department("EDF","Edificació","Departament d'edificació i obra civil",
-            [obtainFamilyIdByCode('EDF')]);
-        first_or_create_department("MEC", "Mecànica" ,"Departament de fabricació mecànica" ,
-            [obtainFamilyIdByCode('FOL')]);
+            [obtainFamilyIdByCode('EDF')],
+            obtainLocationIdByCode('TODO'));
+        first_or_create_department("MEC", "Mecànica" ,"Departament de fabricació mecànica" ,[
+            obtainFamilyIdByCode('MEC'),
+            obtainFamilyIdByCode('MAN'),
+            ],
+            obtainLocationIdByCode('TODO'));
         first_or_create_department("SAN","Sanitat","Departament de sanitat",
-            [obtainFamilyIdByCode('FOL')]);
+            [obtainFamilyIdByCode('SAN')],
+            obtainLocationIdByCode('TODO'));
         first_or_create_department("SSC","Serveis", "Departament de serveis socioculturals i a la comunitat",
-            [obtainFamilyIdByCode('FOL')]);
-        first_or_create_department("CAS","Curs accés","Preparació proves d'accès a superior",
-            [obtainFamilyIdByCode('FOL')]);
+            [obtainFamilyIdByCode('SSC')],
+            obtainLocationIdByCode('TODO'));
         first_or_create_department("ART","Arts gràfiques","Departament d'Arts gràfiques",
-            [obtainFamilyIdByCode('FOL')]);
+            [obtainFamilyIdByCode('ART')],
+            obtainLocationIdByCode('TODO'));
+        first_or_create_department("CAS","Curs accés","Preparació proves d'accès a superior",
+            [obtainFamilyIdByCode('CAS')],
+            obtainLocationIdByCode('TODO'));
+        first_or_create_department("FOL","Orientació laboral","Departament de formació i orientació laboral" ,
+            [obtainFamilyIdByCode('FOL')],
+            obtainLocationIdByCode('TODO'));
+
     }
 }
 

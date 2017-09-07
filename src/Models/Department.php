@@ -11,5 +11,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Department extends Model
 {
-    protected $fillable = ['code','shortname', 'name'];
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['code','shortname', 'name','location_id'];
+
+    /**
+     * The families that belongs to department.
+     */
+    public function families()
+    {
+        return $this->belongsToMany(Family::class);
+    }
 }

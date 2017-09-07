@@ -29,8 +29,12 @@ class CreateDepartmentsTable extends Migration
         Schema::create('department_family', function (Blueprint $table) {
             $table->integer('department_id')->unsigned();
             $table->integer('family_id')->unsigned();
-            $table->timestamps();
+
             $table->unique(['department_id', 'family_id']);
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
+            $table->foreign('family_id')->references('id')->on('families')->onDelete('cascade');
+
+            $table->timestamps();
         });
 
         Schema::create('department_head', function (Blueprint $table) {
