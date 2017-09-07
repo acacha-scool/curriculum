@@ -12,5 +12,16 @@ use Scool\Curriculum\Traits\HasManyStudies;
  */
 class Family extends Model
 {
-    use HasManyStudies, HasDepartments;
+    use HasManyStudies;
+
+    protected $fillable = ['code','shortname', 'name'];
+
+    /**
+     * The specialities that belong to family.
+     */
+    public function specialities()
+    {
+        return $this->belongsToMany(Speciality::class);
+    }
+
 }

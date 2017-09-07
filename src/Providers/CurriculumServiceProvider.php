@@ -25,7 +25,6 @@ class CurriculumServiceProvider extends ServiceProvider
         if (!defined('SCOOL_CURRICULUM_PATH')) {
             define('SCOOL_CURRICULUM_PATH', realpath(__DIR__.'/../../'));
         }
-        $this->registerNamesServiceProvider();
 
         $this->registerStatefulEloquentServiceProvider();
 
@@ -57,15 +56,6 @@ class CurriculumServiceProvider extends ServiceProvider
     protected function registerStatefulEloquentServiceProvider()
     {
         $this->app->register(StatefulServiceProvider::class);
-    }
-
-    /**
-     * Register acacha/names Service Provider.
-     *
-     */
-    protected function registerNamesServiceProvider()
-    {
-        $this->app->register(NamesServiceProvider::class);
     }
 
     /**

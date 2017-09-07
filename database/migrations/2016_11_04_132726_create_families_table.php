@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateFamiliesTable.
+ */
 class CreateFamiliesTable extends Migration
 {
     /**
@@ -15,6 +18,9 @@ class CreateFamiliesTable extends Migration
     {
         Schema::create('families', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('code')->unique();
+            $table->string('shortname')->unique();
+            $table->string('name')->unique();
             $table->timestamps();
         });
 

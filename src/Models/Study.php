@@ -23,5 +23,5 @@ class Study extends Model implements Transformable
      *
      * @var array
      */
-    protected $fillable = ['name','law_id'];
+    protected $fillable = ['code','name','law_id'];
 }

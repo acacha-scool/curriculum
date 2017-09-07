@@ -1,8 +1,10 @@
 <?php
 
 use Scool\Curriculum\Models\Classroom;
+use Scool\Curriculum\Models\Family;
 use Scool\Curriculum\Models\Law;
 use Scool\Curriculum\Models\Speciality;
+use Scool\Curriculum\Models\Study;
 
 if (! function_exists('seed_laws')) {
     /**
@@ -18,10 +20,13 @@ if (! function_exists('seed_laws')) {
 if (! function_exists('first_or_create_law')) {
     /**
      * Create study if not exists and return new o already existing study.
+     *
+     * @param $code
+     * @param $name
+     * @return $this|\Illuminate\Database\Eloquent\Model|static
      */
     function first_or_create_law($code, $name)
     {
-        //Depends: on nothing
         try {
             $law = Law::create([
                 'code' => $code,
@@ -39,22 +44,40 @@ if (! function_exists('first_or_create_law')) {
 if (! function_exists('first_or_create_study')) {
     /**
      * Create study if not exists and return new o already existing study.
+     *
+     * @param $code
+     * @param $name
+     * @param $law
+     * @return $this|\Illuminate\Database\Eloquent\Model|static
      */
     function first_or_create_study($code, $name, $law)
     {
-        //Depends: on nothing
-        first_or_create_law("ACO","Activitats comercials",obtainLawIdByCode("LOE"));
-
+        try {
+            $study = Study::create([
+                'code' => $code,
+                'name' => $name,
+                'law_id' => $law,
+                'state' => 'active'
+            ]);
+            return $study;
+        } catch (Illuminate\Database\QueryException $e) {
+            return Study::where([
+                ['code', '=', $code]
+            ]);
+        }
     }
 }
 
 if (! function_exists('obtainLawIdByCode')) {
     /**
-     * Obtain Law id by code
+     * Obtain Law id by code.
+     *
+     * @param $code
+     * @return mixed
      */
     function obtainLawIdByCode($code)
     {
-
+        return Law::where('code', $code)->first()->id;
     }
 }
 
@@ -65,6 +88,7 @@ if (! function_exists('seed_studies')) {
     function seed_studies()
     {
         //Depends: laws
+        seed_laws();
         first_or_create_study("ACO","Activitats comercials",obtainLawIdByCode("LOE"));
         first_or_create_study("ADI","Assistència a la direcció",obtainLawIdByCode("LOE"));
         first_or_create_study("AF","Administració i finances",obtainLawIdByCode("LOE"));
@@ -107,13 +131,17 @@ if (! function_exists('seed_studies')) {
     }
 }
 
+if (! function_exists('first_or_create_speciality')) {
 
-
-if (! function_exists('speciality_first_or_create')) {
     /**
      * Create speciality if not exists and return new o already existing speciality.
+     *
+     * @param $code
+     * @param $name
+     * @param $description
+     * @return $this|\Illuminate\Database\Eloquent\Model|static
      */
-    function speciality_first_or_create($code, $name, $description)
+    function first_or_create_speciality($code, $name, $description)
     {
         try {
             $speciality = Speciality::create([
@@ -139,11 +167,134 @@ if (! function_exists('seed_specialities')) {
      */
     function seed_specialities()
     {
-        speciality_first_or_create('CAS' , 'Curs Accés Grau Superior', '');
-        speciality_first_or_create('505' , 'For. Org. Lab.', '');
-        speciality_first_or_create('AN' , 'Anglès', '');
-        speciality_first_or_create('MA' , 'Matemàtiques', '');
-        speciality_first_or_create('507' , 'Informàtica', '');
+        //Depends on nothing
+        first_or_create_speciality('CAS' , 'Curs Accés Grau Superior', '');
+        first_or_create_speciality('505' , 'For. Org. Lab.', '');
+        first_or_create_speciality('AN' , 'Anglès', '');
+        first_or_create_speciality('MA' , 'Matemàtiques', '');
+        first_or_create_speciality('507' , 'Informàtica', '');
+        //TODO
+    }
+}
+
+if (! function_exists('first_or_create_family')) {
+
+    /**
+     * Create family if not exists and return new o already existing family.
+     *
+     * @param $code
+     * @param $shortname
+     * @param $name
+     * @param $specialities
+     * @return $this|\Illuminate\Database\Eloquent\Model|static
+     */
+    function first_or_create_family($code, $shortname, $name, $specialities)
+    {
+        try {
+            $family = Family::create([
+                'code' => $code,
+                'shortname' => $shortname,
+                'name' => $name,
+            ]);
+
+            $family->specialities()->sync($specialities);
+            return $family;
+        } catch (Illuminate\Database\QueryException $e) {
+            return Family::where([
+                ['code', '=', $code]
+            ]);
+        }
+    }
+}
+
+if (! function_exists('obtainSpecialityIdByCode')) {
+
+    /**
+     * Obtain speciality id by code.
+     *
+     * @param $code
+     * @return mixed
+     */
+    function obtainSpecialityIdByCode($code)
+    {
+        return Speciality::where('code', $code)->first()->id;
+    }
+}
+
+if (! function_exists('seed_families')) {
+
+    /**
+     * Seed families
+     *
+     * @return mixed
+     */
+    function seed_families()
+    {
+        //Depends on specialities
+        seed_specialities();
+        first_or_create_family('SAN','Sanitat' , "Família de sanitat", [
+            obtainSpecialityIdByCode('517'),
+            obtainSpecialityIdByCode('518'),
+            obtainSpecialityIdByCode('619'),
+            obtainSpecialityIdByCode('620')
+        ]);
+        first_or_create_family('INF','Informàtica' , "Família d'informàtica", [
+            obtainSpecialityIdByCode('507'),
+            obtainSpecialityIdByCode('627')
+        ]);
+        first_or_create_family('SSCC','Serveis socioculturals' , "Família de serveis socioculturals i a la comunitat", [
+            obtainSpecialityIdByCode('508'),
+            obtainSpecialityIdByCode('625')
+        ]);
+        //TODO
+    }
+}
+
+if (! function_exists('first_or_create_department')) {
+
+    /**
+     * Create department if not exists and return new o already existing department.
+     *
+     * @return mixed
+     */
+    function first_or_create_department($code, $shortname, $name)
+    {
+        try {
+            $department = Department::create([
+                'code' => $code,
+                'shortname' => $shortname,
+                'name' => $name
+            ]);
+            return $department;
+        } catch (Illuminate\Database\QueryException $e) {
+            return Department::where([
+                ['code', '=', $code]
+            ]);
+        }
+    }
+}
+
+if (! function_exists('seed_departments')) {
+
+    /**
+     * Seed departments.
+     *
+     * @return mixed
+     */
+    function seed_departments()
+    {
+        //Depends on: caps de departament i/o caps de seminari | location | families | studies relacionats
+        first_or_create_department("Administració","Departament d'administració i gestió");
+        first_or_create_department("Informatica","Departament d'informàtica");
+        first_or_create_department("FOL","Departament de formació i orientació laboral");
+        first_or_create_department("Electricitat i electrònica","Departament d'electricitat i electrònica");
+        first_or_create_department("Comerç i màrqueting","Departament de comerç i màrqueting");
+        first_or_create_department("Edificació i obra civil","Departament d'edificació i obra civil");
+        first_or_create_department("Fabricació mecànica","Departament de fabricació mecànica");
+        first_or_create_department("Sanitat","Departament de sanitat");
+        first_or_create_department("Serveis socioculturals i a la comunitat","Departament de serveis socioculturals i a la comunitat");
+        first_or_create_department("Curs d'accès | Àngles","Preparació proves d'accès a superior");
+        first_or_create_department("Arts gràfiques","Departament d'Arts gràfiques");
     }
 }
 
@@ -174,7 +325,7 @@ if (! function_exists('classroom_first_or_create()')) {
 if (! function_exists('obtainLocationIdByName()')) {
 
     /**
-     * Seed obtain location id by name.
+     * Obtain location id by name.
      *
      * @return mixed
      */
@@ -239,5 +390,20 @@ if (! function_exists('seed_modules()')) {
     function seed_modules()
     {
         classroom_first_or_create('1GAD' , '1r Gestió Administrativa'    , obtainLocationIdByName('32') , obtainShiftIdByCode('M'));
+    }
+}
+
+if (! function_exists('seed_curriculum()')) {
+
+    /**
+     * Seed all curriculum.
+     *
+     * @return mixed
+     */
+    function seed_curriculum()
+    {
+        seed_laws();
+        seed_studies();
+        seed_specialities();
     }
 }

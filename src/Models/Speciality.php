@@ -33,4 +33,12 @@ class Speciality extends Model
     {
         return $this->belongsToMany(Submodule::class);
     }
+
+    /**
+     * The families that uses this speciality.
+     */
+    public function families()
+    {
+        return $this->belongsToMany(Family::class);
+    }
 }

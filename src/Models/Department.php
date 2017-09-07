@@ -3,13 +3,13 @@
 namespace Scool\Curriculum\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Prettus\Repository\Contracts\Transformable;
-use Prettus\Repository\Traits\TransformableTrait;
 
-class Department extends Model implements Transformable
+/**
+ * Class Department.
+ *
+ * @package Scool\Curriculum\Models
+ */
+class Department extends Model
 {
-    use TransformableTrait;
-
-    protected $fillable = [];
-
+    protected $fillable = ['code','shortname', 'name'];
 }
