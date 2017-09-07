@@ -1,7 +1,113 @@
 <?php
 
 use Scool\Curriculum\Models\Classroom;
+use Scool\Curriculum\Models\Law;
 use Scool\Curriculum\Models\Speciality;
+
+if (! function_exists('seed_laws')) {
+    /**
+     * Seed laws.
+     */
+    function seed_laws()
+    {
+        first_or_create_law('LOGSE','Ley Orgánica de Ordenación General del Sistema Educativo');
+        first_or_create_law('LOE','Ley Orgánica de Educación');
+    }
+}
+
+if (! function_exists('first_or_create_law')) {
+    /**
+     * Create study if not exists and return new o already existing study.
+     */
+    function first_or_create_law($code, $name)
+    {
+        //Depends: on nothing
+        try {
+            $law = Law::create([
+                'code' => $code,
+                'name' => $name,
+            ]);
+            return $law;
+        } catch (Illuminate\Database\QueryException $e) {
+            return Law::where([
+                ['code', '=', $code]
+            ]);
+        }
+    }
+}
+
+if (! function_exists('first_or_create_study')) {
+    /**
+     * Create study if not exists and return new o already existing study.
+     */
+    function first_or_create_study($code, $name, $law)
+    {
+        //Depends: on nothing
+        first_or_create_law("ACO","Activitats comercials",obtainLawIdByCode("LOE"));
+
+    }
+}
+
+if (! function_exists('obtainLawIdByCode')) {
+    /**
+     * Obtain Law id by code
+     */
+    function obtainLawIdByCode($code)
+    {
+
+    }
+}
+
+if (! function_exists('seed_studies')) {
+    /**
+     * Seed studies.
+     */
+    function seed_studies()
+    {
+        //Depends: laws
+        first_or_create_study("ACO","Activitats comercials",obtainLawIdByCode("LOE"));
+        first_or_create_study("ADI","Assistència a la direcció",obtainLawIdByCode("LOE"));
+        first_or_create_study("AF","Administració i finances",obtainLawIdByCode("LOE"));
+        first_or_create_study("APD","Atenció a persones en situació de dependència",obtainLawIdByCode("LOE"));
+        first_or_create_study("ARI","Automatització i robòtica industrial ",obtainLawIdByCode("LOE"));
+        first_or_create_study("AS","Atenció sociosanitària",obtainLawIdByCode("LOGSE"));
+        first_or_create_study("ASIX","Administració de Sistemes Informàtics ",obtainLawIdByCode("LOE"));
+        first_or_create_study("ASIX - DAM","Administració de Sistemes Informàtics | Desenvolupament d'Aplicacions Multiplataforma",obtainLawIdByCode("LOE"));
+        first_or_create_study("CAI","Cures auxiliars d'infermeria",obtainLawIdByCode("LOGSE"));
+        first_or_create_study("CAM","Curs d'accès mitja",obtainLawIdByCode("LOE"));
+        first_or_create_study("CAS","Curs d'accès superior",obtainLawIdByCode("LOE"));
+        first_or_create_study("COM","Comerç",obtainLawIdByCode("LOGSE"));
+        first_or_create_study("DAM","Desenvolupament d'aplicacions multiplataforma",obtainLawIdByCode("LOE"));
+        first_or_create_study("DEPIM","Disseny i Edició de Publicacions Impreses i Multimèdia",obtainLawIdByCode("LOE"));
+        first_or_create_study("DIE","Dietètica",obtainLawIdByCode("LOGSE"));
+        first_or_create_study("EE","Eficiència energètica i energia solar tèrmica",obtainLawIdByCode("LOE"));
+        first_or_create_study("EIN","Educació infantil",obtainLawIdByCode("LOE"));
+        first_or_create_study("ES","Emergències sanitàries",obtainLawIdByCode("LOE"));
+        first_or_create_study("FAR","Farmàcia i parafarmàcia",obtainLawIdByCode("LOE"));
+        first_or_create_study("GAD","Gestió administrativa",obtainLawIdByCode("LOE"));
+        first_or_create_study("GCM","Gestió comercial y màrqueting",obtainLawIdByCode("LOGSE"));
+        first_or_create_study("IEA","Instal·lacions elèctriques i automàtiques",obtainLawIdByCode("LOE"));
+        first_or_create_study("IME","Manteniment electromecànic",obtainLawIdByCode("LOE"));
+        first_or_create_study("INS","Integració social",obtainLawIdByCode("LOE"));
+        first_or_create_study("IT","Instal·lacions de telecomunicacions",obtainLawIdByCode("LOE"));
+        first_or_create_study("LCB","Laboratori Clínic Biomèdic",obtainLawIdByCode("LOE"));
+        first_or_create_study("LDC","Laboratori de diagnòstic clínic",obtainLawIdByCode("LOGSE"));
+        first_or_create_study("MAP","Màrqueting i publicitat",obtainLawIdByCode("LOE"));
+        first_or_create_study("MEC","Mecanització",obtainLawIdByCode("LOE"));
+        first_or_create_study("PM","Programació de la producció en fabricació mecànica",obtainLawIdByCode("LOE"));
+        first_or_create_study("PRID","Preimpresió digital",obtainLawIdByCode("LOE"));
+        first_or_create_study("PRID_ANTIC","Preimpresió digital àntic",obtainLawIdByCode("LOE"));
+        first_or_create_study("PRO","Projectes d'edificació",obtainLawIdByCode("LOE"));
+        first_or_create_study("PRP","Prevenció de riscos professionals",obtainLawIdByCode("LOGSE"));
+        first_or_create_study("SE","Secretariat",obtainLawIdByCode("LOGSE"));
+        first_or_create_study("SEA","Sistemes electrònics i automatitzats",obtainLawIdByCode("LOE"));
+        first_or_create_study("SIC","Soldadura i calderia",obtainLawIdByCode("LOE"));
+        first_or_create_study("SMX","Sistemes microinformatics i xarxes",obtainLawIdByCode("LOE"));
+        first_or_create_study("STI","Sistemes de telecomunicacions i informàtics",obtainLawIdByCode("LOE"));
+    }
+}
+
+
 
 if (! function_exists('speciality_first_or_create')) {
     /**

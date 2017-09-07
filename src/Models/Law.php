@@ -2,7 +2,6 @@
 
 namespace Scool\Curriculum\Models;
 
-use Acacha\Names\Traits\Nameable;
 use Illuminate\Database\Eloquent\Model;
 use Scool\Curriculum\Traits\HasManyStudies;
 
@@ -13,7 +12,7 @@ use Scool\Curriculum\Traits\HasManyStudies;
  */
 class Law extends Model
 {
-    use HasManyStudies,Nameable;
+    use HasManyStudies;
 
     /**
      * LOE code.
@@ -32,4 +31,11 @@ class Law extends Model
      * LOGSE name.
      */
     const LOGSE_NAME = "Ley Orgánica general del Sistema Educativo";
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['code', 'name'];
 }

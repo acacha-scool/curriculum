@@ -2,7 +2,6 @@
 
 namespace Scool\Curriculum\Models;
 
-use Acacha\Names\Traits\Nameable;
 use Illuminate\Database\Eloquent\Model;
 use Scool\Curriculum\Traits\HasModules;
 use Scool\Curriculum\Traits\HasStudies;
@@ -15,7 +14,7 @@ use Scool\Curriculum\Traits\HasSubmodules;
  */
 class Course extends Model
 {
-    use HasSubmodules,HasModules, HasStudies, Nameable;
+    use HasSubmodules,HasModules, HasStudies;
 
     /**
      * The attributes that are mass assignable.

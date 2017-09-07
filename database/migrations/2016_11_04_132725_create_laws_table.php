@@ -18,7 +18,8 @@ class CreateLawsTable extends Migration
     {
         Schema::create('laws', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('code')->unique();
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }

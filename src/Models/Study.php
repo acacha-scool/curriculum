@@ -2,7 +2,6 @@
 
 namespace Scool\Curriculum\Models;
 
-use Acacha\Names\Traits\Nameable;
 use Illuminate\Database\Eloquent\Model;
 use Scool\Curriculum\Traits\HasCourses;
 use Scool\Curriculum\Traits\HasDepartments;
@@ -17,7 +16,7 @@ use Prettus\Repository\Traits\TransformableTrait;
  */
 class Study extends Model implements Transformable
 {
-    use HasLaw,HasDepartments,HasCourses,Nameable,TransformableTrait;
+    use HasLaw,HasDepartments,HasCourses,TransformableTrait;
 
     /**
      * The attributes that are mass assignable.

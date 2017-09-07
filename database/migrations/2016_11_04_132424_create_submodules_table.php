@@ -31,8 +31,11 @@ class CreateSubmodulesTable extends Migration
 
         Schema::create('classroom_submodule', function (Blueprint $table) {
             $table->integer('classroom_id')->unsigned();
-            $table->integer('submodule_id')->unsigned();
+            $table->integer('sudmodule_id')->unsigned();
             $table->timestamps();
+            $table->unique(['classroom_id', 'sudmodule_id']);
+            $table->foreign('classroom_id')->references('id')->on('classrooms')->onDelete('cascade');
+            $table->foreign('sudmodule_id')->references('id')->on('submodules')->onDelete('cascade');
         });
 
     }

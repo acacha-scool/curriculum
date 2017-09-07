@@ -8,7 +8,6 @@
         "laravel"
     ],
     "require": {
-        "acacha/names": "dev-master",
         "fzaninotto/faker": "^1.6",
         "laravel/framework": "^5.3",
         "acacha/l5-repository": "dev-master",
