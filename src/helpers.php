@@ -1,6 +1,7 @@
 <?php
 
 use Scool\Curriculum\Models\Classroom;
+use Scool\Curriculum\Models\Course;
 use Scool\Curriculum\Models\Department;
 use Scool\Curriculum\Models\Family;
 use Scool\Curriculum\Models\Law;
@@ -124,13 +125,27 @@ if (! function_exists('seed_studies')) {
         first_or_create_study("PRID_ANTIC","Preimpresió digital àntic",obtainLawIdByCode("LOE"));
         first_or_create_study("PRO","Projectes d'edificació",obtainLawIdByCode("LOE"));
         first_or_create_study("PRP","Prevenció de riscos professionals",obtainLawIdByCode("LOGSE"));
-        first_or_create_study("SE","Secretariat",obtainLawIdByCode("LOGSE"));
         first_or_create_study("SEA","Sistemes electrònics i automatitzats",obtainLawIdByCode("LOE"));
         first_or_create_study("SIC","Soldadura i calderia",obtainLawIdByCode("LOE"));
         first_or_create_study("SMX","Sistemes microinformatics i xarxes",obtainLawIdByCode("LOE"));
         first_or_create_study("STI","Sistemes de telecomunicacions i informàtics",obtainLawIdByCode("LOE"));
     }
 }
+
+if (! function_exists('obtainStudyIdByCode')) {
+
+    /**
+     * Obtain study id by code.
+     *
+     * @param $code
+     * @return mixed
+     */
+    function obtainStudyIdByCode($code)
+    {
+        return Study::where('code', $code)->first()->id;
+    }
+}
+
 
 if (! function_exists('first_or_create_speciality')) {
 
@@ -422,17 +437,18 @@ if (! function_exists('seed_departments')) {
     }
 }
 
-if (! function_exists('classroom_first_or_create()')) {
+if (! function_exists('first_or_create_classroom()')) {
 
     /**
-     * Create classrom or returns the already exiting one.
+     * Create classroom or returns the already exiting one.
      *
      * @return mixed
      */
-    function classroom_first_or_create($code, $name, $location , $shift) {
+    function first_or_create_classroom($code, $shortname, $name, $location , $shift) {
         try {
             $classroom = Classroom::create([
                 'code' => $code,
+                'shortname' => $shortname,
                 'name' => $name,
                 'location_id' => $location,
                 'shift_id' => $shift,
@@ -481,26 +497,194 @@ if (! function_exists('seed_classrooms()')) {
      */
     function seed_classrooms()
     {
-        classroom_first_or_create('1GAD' , '1r Gestió Administrativa'    , obtainLocationIdByName('32') , obtainShiftIdByCode('M'));
-        classroom_first_or_create('2GAD' , '2n Gestió Administrativa'    , obtainLocationIdByName('32') , obtainShiftIdByCode('T'));
-        classroom_first_or_create('2AF'  , '2n Administració i finànces' , obtainLocationIdByName('31') , obtainShiftIdByCode('T'));
-        classroom_first_or_create('1ADI' , 'Assistència a la direcció'   , obtainLocationIdByName('30') , obtainShiftIdByCode('M'));
+        //Depends on locations and shifts
+        seed_locations();
+//        seed_shifts();
+        // TODO locations and shifts
+        first_or_create_classroom("1ASIX-DAM","1r Informàtica (S)","1r Informàtica (S) ASIX - DAM", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1SMX A","*1r Inform Mitj A","1r Sistemes microinformàtics i xarxes grup A", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1SMX B","*1r Inform. mitj B","1r Sistemes microinformàtics i xarxes grup B", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1SMX C","*1r Inform. mitj C","1r Sistemes microinformàtics i xarxes grup C", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2SMX A","2n Inform. Mitj A","2n Sistemes microinformàtics i xarxes A", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2SMX B","2n Inform. Mitj B","2n Sistemes microinformàtics i xarxes B", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1AF","1r Adm. Finan (S)","1r Administració i Finances", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2AF","2n Ad. Finan (S)","2n Administració i finances", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1PRO","1r Projec. Edif.  (S) ","1r Projectes d'edificació", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2PRO","2n D. A. Projec. C (S)","2n Projectes i edificació", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1DIE","1r Dietètica (S) ","1r Dietètica", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2DIE","2n Diet","2n Dietètica", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1EIN","1r Educació Inf. (S)","1r Educació infantil", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2EIN","2n Educaci","2n Educació infantil", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("GCM","Ges. Comer. Mar.(S)","1r Gestió comerial i màrqueting", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1EE/ 2EE","1-2 Efic. Energ. (S)","1-2 Eficiència energètica i energia solar tèrmica", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1SEA","1r Sist. Elect. Auto. (S)","1r Sistemes electrònics i automatitzats", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2SEA","*2n Sist. Electri i automa (S)","2n Sistemes electrotènics i automatitzats", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1INS A","1r Int. Soc. (S) A","1r Integració social (Grup A)", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1INS B","1r Int. Soc. (S) B","1r Integració social (Grup B)", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2INS A","2n Integraci A","2n Integració social A", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2INS B","2n Integraci B","2n Integració social B", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1PRP","1r Prev. Riscos Prof.(S)","1r Prevenció de riscos professionals", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2PRP","2n Prev. Riscos Prof.(S)","2n Prevenció de riscos professionals", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1PM","1r Prod. Mecanització (S)","1r Programació de la producció en fabricació mecànica", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2PM","*2n Prod. Mecanitza.(S) L","2n Programació de la producció en fabricació mecànica", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("SE","Secretariat (S)","1r Secretariat", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1STI","1r Sis. Teleco. Infor (S)","1r Sistemes de telecomunicació i informàtics", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2STI","2n Sis. teleco. Infor (S)","2n Sistemes de telecomunicació i informàtics", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1APD A","1r Atenc. Persones Dep. (M) A","1r Atenció a persones en situació de dependència A", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1APD B","1r Atenc. Persones Dep. (M) B","1r Atenció a persones en situació de dependència B", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2APD A","2n Atenc. Persones Dep.M A","2n Atenció a persones en situació de dependència A", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2APD B","2n Atenc. Persones Dep.M B","2n Atenció a persones en situació de dependència B", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("COM","*Comer","1r Comerç", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("CAIA","*Cures Auxiliar Inf(M) A","1r Cures auxiliars d'infermeria A", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("CAIB","*Cures Auxiliar Inf(M) B","1r Cures auxiliars d'infermeria B", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("CAIC","Cures Auxiliar Inf(M)","1r Cures auxiliars d'infermeria", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("CAI - FCT","CAI - FCT","Cures d'Auxiliar i infermeria - FCT", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1IEA","1r Ins. Elec.  Autom (M)","1r Instal·lacions elèctriques i automàtiques", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2IEA","*2n Ins.Elec,Autom(M)L","2n Instal·lacions elètriques i automàtiques", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1ES","1r Emerg. Sanit. (M)","1r Emergències sanitàries", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2ES","2n Emerg. Sanit.(M)","2n Emergencies sanitaries", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1FAR","1r Farm. Paraf. (M)","1r Farmàcia i parafarmàcia", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2FAR","2n Farm","2n Farmàcia i parafarmàcia", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1GAD A","1r Gestió Adm. (M) A","1r Gestió administrativa A", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1GAD B","1r Gestió Adm. (M) B","1r Gestió administrativa B", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2GAD","2n Gest. Adm. (M)L","2n Gestió administrativa", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1IME","1r Mant. Elec. (M)","1r Manteniment electromecànic", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2IME","2n Ins. Mant. Elec.(M)","2n Manteniment electromecànic", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1MEC","1r Mecanització","1r Mecanització ", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2MEC","2n Mecanitzaci","2n Mecanització", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2SIC","2n Soldadura i caldereria (M) ","2n Soldadura i calderia", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("CAM","*Curs Acc","1r Curs d'accès al grau mitjà", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("CAS A","*Curs Acc A","1r Curs d'accès al grau superior A", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("CAS B","*Curs Acc B","1r Curs d'accès al grau superior B", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1ARI","1r Auto. Rob. superior","1r Automatització i robòtica industrial ", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2ARI","2n Auto. Rob. superior","2n Automatització i robòtica industrial", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2ASIX","2n Adm Sist Inf xarxa(S)L","2n Administració de sistemes informàtics i xarxes", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2DAM","2n Desenv Aplic Mult (S)L","2n Desenvolupament d'Aplicacions Multiplataforma", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2PM-Dual","*2n Prod. Mecanitza.(S) L DUAL","2n Programació de la producció en fabricació mecànica DUAL", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1ACO","1r Act. Comercial. Mitjà","1r Activitats comercial. Mitjà", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2ACO","2n Act. Comercial.","2n Act. Comercial. Mitjà", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1MAP","1r Màrq. Publicitat (S).","1r Màrqueting i publicitat", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2MAP","2n Màrq. Publicitat (S).","2n Màrqueting i publicitat", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1ADI","1r Assis. Direcció (S).","1r Assistència a la direcció", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2ADI","2n Assis. Direcció (S).","2n Assistència a la direcció", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1LCB","1r Lab. Clin.Biomèdic (S).","1r Laboratori clínic biomèdic", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2LCB","2n Lab. Clin.Biomèdic (S).","2n Laboratori clínic biomèdic", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1PRID","1r Preimpr. digital. Mitjà","1r Preimpressió digital. Mitjà", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2PRID","2n Preimpr. digital. Mitjà","2n Preimpressió digital. Mitjà", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2IT","2n Ins.Telecomunicacions(M)","2n Instal·lacions de Telecomunicacions", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1EE","1 Efic. Energ. (S)","1 Eficiència energètica i energia solar tèrmica", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("2EE","2 Efic. Energ. (S)","2 Eficiència energètica i energia solar tèrmica", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
+        first_or_create_classroom("1DEPIM","1r Disseny. multimèdia (S)","1r Disseny i edició de publicacions impreses i multimèdia (S)", obtainLocationIdByName("20.2"), obtainShiftIdByCode("M"));
     }
 }
 
-if (! function_exists('seed_submodules()')) {
+if (! function_exists('first_or_create_course()')) {
 
     /**
-     * Seed submodules.
+     * Create course or returns the already exiting one.
+     *
+     * @param $code
+     * @param $name
+     * @param $state
+     * @param $order
+     * @param $studies
+     * @return $this|\Illuminate\Database\Eloquent\Model|static
+     */
+    function first_or_create_course($code, $name, $state, $order, $studies ) {
+        try {
+            $course = Course::create([
+                'code' => $code,
+                'name' => $name,
+                'state' => $state,
+                'order' => $order,
+            ]);
+            $course->studies()->sync($studies);
+            return $course;
+        } catch (Illuminate\Database\QueryException $e) {
+            return Course::where([
+                ['code', '=', $code]
+            ]);
+        }
+    }
+}
+
+
+if (! function_exists('seed_courses()')) {
+
+    /**
+     * Seed courses.
      *
      * @return mixed
      */
-    function seed_submodules()
+    function seed_courses()
     {
-        classroom_first_or_create('1GAD' , '1r Gestió Administrativa'    , obtainLocationIdByName('32') , obtainShiftIdByCode('M'));
-        classroom_first_or_create('2GAD' , '2n Gestió Administrativa'    , obtainLocationIdByName('32') , obtainShiftIdByCode('T'));
-        classroom_first_or_create('2AF'  , '2n Administració i finànces' , obtainLocationIdByName('31') , obtainShiftIdByCode('T'));
-        classroom_first_or_create('1ADI' , 'Assistència a la direcció'   , obtainLocationIdByName('30') , obtainShiftIdByCode('M'));
+        seed_studies();
+        first_or_create_course("1SMX", "Curs 1 - SMX", "active",1, [ ObtainStudyIdByCode("SMX") ]);
+        first_or_create_course("2SMX", "Curs 2 - SMX", "active",2, [ ObtainStudyIdByCode("SMX") ]);
+        first_or_create_course("1ASIX-DAM", "Curs 1 - ASIX-DAM", "active",1, [ ObtainStudyIdByCode("ASIX - DAM") ]);
+        first_or_create_course("2ASIX", "Curs 2 - ASIX", "active",2, [ ObtainStudyIdByCode("ASIX") ]);
+        // 3x2 ASIX/DAM
+        first_or_create_course("2DAM", "Curs 2 - DAM", "active",2, [ ObtainStudyIdByCode("DAM") ]);
+        first_or_create_course("1AF", "Curs 1 - AF", "active",1, [ ObtainStudyIdByCode("AF") ]);
+        first_or_create_course("2AF", "Curs 2 - AF", "active",2, [ ObtainStudyIdByCode("AF") ]);
+        first_or_create_course("1GAD", "Curs 1 - GAD", "active",1, [ ObtainStudyIdByCode("GAD") ]);
+        first_or_create_course("2GAD", "Curs 2 - GAD", "active",2, [ ObtainStudyIdByCode("GAD") ]);
+        first_or_create_course("1GCM", "Curs 1 - GCM", "active",1, [ ObtainStudyIdByCode("GCM") ]);
+        first_or_create_course("1COM", "Curs 1 - COM", "active",1, [ ObtainStudyIdByCode("COM") ]);
+        first_or_create_course("1PRO", "Curs 1 - PRO", "active",1, [ ObtainStudyIdByCode("PRO") ]);
+        first_or_create_course("2PRO", "Curs 2 - PRO", "active",2, [ ObtainStudyIdByCode("PRO") ]);
+        first_or_create_course("1IEA", "Curs 1 - IEA", "active",1, [ ObtainStudyIdByCode("IEA") ]);
+        first_or_create_course("2IEA", "Curs 2 - IEA", "active",2, [ ObtainStudyIdByCode("IEA") ]);
+        //3x2 IEA+IT
+        first_or_create_course("2IT", "Curs 2 - IT", "active",2, [ ObtainStudyIdByCode("IT") ]);
+        first_or_create_course("1IME", "Curs 1 - IME", "active",1, [ ObtainStudyIdByCode("IME") ]);
+        first_or_create_course("2IME", "Curs 2 - IME", "active",2, [ ObtainStudyIdByCode("IME") ]);
+        first_or_create_course("1SEA", "Curs 1 - SEA", "active",1, [ ObtainStudyIdByCode("SEA") ]);
+        first_or_create_course("2SEA", "Curs 2 - SEA", "active",2, [ ObtainStudyIdByCode("SEA") ]);
+        first_or_create_course("1EE", "Curs 1 - EE", "active",1, [ ObtainStudyIdByCode("EE") ]);
+        first_or_create_course("2EE", "Curs 2 - EE", "active",2, [ ObtainStudyIdByCode("EE") ]);
+        first_or_create_course("1MEC", "Curs 1 - MEC", "active",1, [ ObtainStudyIdByCode("MEC") ]);
+        first_or_create_course("2MEC", "Curs 2 - MEC", "active",2, [ ObtainStudyIdByCode("MEC") ]);
+        // 3x2 Mecanització + Soldadura
+        first_or_create_course("2SIC", "Curs 2 - SIC", "active",2, [ ObtainStudyIdByCode("SIC") ]);
+
+        // TODO ESTUDI PM DUAL!!!!!!!!!!
+        first_or_create_course("1PM", "Curs 1 - PM", "active",1, [ ObtainStudyIdByCode("PM") ]);
+        first_or_create_course("2PM", "Curs 2 - PM", "active",2, [ ObtainStudyIdByCode("PM") ]);
+        first_or_create_course("1PRP", "Curs 1 - PRP", "active",1, [ ObtainStudyIdByCode("PRP") ]);
+        first_or_create_course("2PRP", "Curs 2 - PRP", "active",2, [ ObtainStudyIdByCode("PRP") ]);
+        first_or_create_course("1ES", "Curs 1 - ES", "active",1, [ ObtainStudyIdByCode("ES") ]);
+        first_or_create_course("2ES", "Curs 2 - ES", "active",2, [ ObtainStudyIdByCode("ES") ]);
+        first_or_create_course("1FAR", "Curs 1 - FAR", "active",1, [ ObtainStudyIdByCode("FAR") ]);
+        first_or_create_course("2FAR", "Curs 2 - FAR", "active",2, [ ObtainStudyIdByCode("FAR") ]);
+        first_or_create_course("1DIE", "Curs 1 - DIE", "active",1, [ ObtainStudyIdByCode("DIE") ]);
+        first_or_create_course("2DIE", "Curs 2 - DIE", "active",2, [ ObtainStudyIdByCode("DIE") ]);
+        first_or_create_course("1LDC", "Curs 1 - LDC", "active",1, [ ObtainStudyIdByCode("LDC") ]);
+        first_or_create_course("2LDC", "Curs 2 - LDC", "active",2, [ ObtainStudyIdByCode("LDC") ]);
+        first_or_create_course("1CAI", "Curs 1 - CAI", "active",1, [ ObtainStudyIdByCode("CAI") ]);
+        first_or_create_course("1EIN", "Curs 1 - EIN", "active",1, [ ObtainStudyIdByCode("EIN") ]);
+        first_or_create_course("2EIN", "Curs 2 - EIN", "active",2, [ ObtainStudyIdByCode("EIN") ]);
+        first_or_create_course("1INS", "Curs 1 - INS", "active",1, [ ObtainStudyIdByCode("INS") ]);
+        first_or_create_course("2INS", "Curs 2 - INS", "active",2, [ ObtainStudyIdByCode("INS") ]);
+        first_or_create_course("1APD", "Curs 1 - APD", "active",1, [ ObtainStudyIdByCode("APD") ]);
+        first_or_create_course("2APD", "Curs 2 - APD", "active",2, [ ObtainStudyIdByCode("APD") ]);
+        first_or_create_course("1CAM", "Curs 1 - CAM", "active",1, [ ObtainStudyIdByCode("CAM") ]);
+        first_or_create_course("1CAS", "Curs 1 - CAS", "active",1, [ ObtainStudyIdByCode("CAS") ]);
+        first_or_create_course("1ARI", "Curs 1 - ARI", "active",1, [ ObtainStudyIdByCode("ARI") ]);
+        first_or_create_course("2ARI", "Curs 2 - ARI", "active",2, [ ObtainStudyIdByCode("ARI") ]);
+        first_or_create_course("1AS", "Curs 1 - AS", "active",1, [ ObtainStudyIdByCode("AS") ]);
+        first_or_create_course("2AS", "Curs 2 - AS", "active",2, [ ObtainStudyIdByCode("AS") ]);
+        first_or_create_course("1MAP", "Curs 1 - MAP", "active",1, [ ObtainStudyIdByCode("MAP") ]);
+        first_or_create_course("2MAP", "Curs 2 - MAP", "active",2, [ ObtainStudyIdByCode("MAP") ]);
+        first_or_create_course("1ACO", "Curs 1 - ACO", "active",1, [ ObtainStudyIdByCode("ACO") ]);
+        first_or_create_course("2ACO", "Curs 2 - ACO", "active",2, [ ObtainStudyIdByCode("ACO") ]);
+        first_or_create_course("1ADI", "Curs 1 - ADI", "active",1, [ ObtainStudyIdByCode("ADI") ]);
+        first_or_create_course("2ADI", "Curs 2 - ADI", "active",2, [ ObtainStudyIdByCode("ADI") ]);
+        first_or_create_course("1LCB", "Curs 1 - LCB", "active",1, [ ObtainStudyIdByCode("LCB") ]);
+        first_or_create_course("2LCB", "Curs 2 - LCB", "active",2, [ ObtainStudyIdByCode("LCB") ]);
+        first_or_create_course("1PRID", "Curs 1 - PRID", "active",1, [ ObtainStudyIdByCode("PRID") ]);
+        first_or_create_course("2PRID", "Curs 2 - PRID", "active",2, [ ObtainStudyIdByCode("PRID") ]);
+        first_or_create_course("1DEPIM", "Curs 1 - DEPIM", "active",1, [ ObtainStudyIdByCode("DEPIM") ]);
     }
 }
 
@@ -513,7 +697,20 @@ if (! function_exists('seed_modules()')) {
      */
     function seed_modules()
     {
-        classroom_first_or_create('1GAD' , '1r Gestió Administrativa'    , obtainLocationIdByName('32') , obtainShiftIdByCode('M'));
+        //TODO
+    }
+}
+
+if (! function_exists('seed_submodules()')) {
+
+    /**
+     * Seed submodules.
+     *
+     * @return mixed
+     */
+    function seed_submodules()
+    {
+        //TODO
     }
 }
 
@@ -530,5 +727,10 @@ if (! function_exists('seed_curriculum()')) {
         seed_studies();
         seed_specialities();
         seed_families();
+        seed_departments();
+        seed_courses();
+        seed_classrooms();
+        seed_modules();
+        seed_submodules();
     }
 }

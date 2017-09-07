@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateClassroomsTable.
+ */
 class CreateClassroomsTable extends Migration
 {
     /**
@@ -16,6 +19,7 @@ class CreateClassroomsTable extends Migration
         Schema::create('classrooms', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code')->unique();
+            $table->string('shortname')->unique();
             $table->string('name')->unique();
             $table->integer('shift_id')->unsigned()->nullable();
             $table->integer('location_id')->unsigned()->nullable();

@@ -3,7 +3,6 @@
 namespace Scool\Curriculum\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Scool\Curriculum\Traits\HasManyStudies;
 
 /**
  * Class Family.
@@ -12,8 +11,6 @@ use Scool\Curriculum\Traits\HasManyStudies;
  */
 class Family extends Model
 {
-    use HasManyStudies;
-
     protected $fillable = ['code','shortname', 'name'];
 
     /**

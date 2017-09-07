@@ -45,13 +45,6 @@ class CreateDepartmentsTable extends Migration
             $table->unique(['department_id', 'user_id']);
         });
 
-        Schema::create('department_study', function (Blueprint $table) {
-            $table->integer('department_id')->unsigned();
-            $table->integer('study_id')->unsigned();
-            $table->timestamps();
-            $table->unique(['department_id', 'study_id']);
-        });
-
     }
 
     /**
@@ -64,6 +57,5 @@ class CreateDepartmentsTable extends Migration
         Schema::dropIfExists('departments');
         Schema::dropIfExists('department_family');
         Schema::dropIfExists('department_head');
-        Schema::dropIfExists('department_study');
     }
 }

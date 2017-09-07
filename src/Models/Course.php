@@ -3,9 +3,7 @@
 namespace Scool\Curriculum\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Scool\Curriculum\Traits\HasModules;
 use Scool\Curriculum\Traits\HasStudies;
-use Scool\Curriculum\Traits\HasSubmodules;
 
 /**
  * Class Course.
@@ -14,12 +12,13 @@ use Scool\Curriculum\Traits\HasSubmodules;
  */
 class Course extends Model
 {
-    use HasSubmodules,HasModules, HasStudies;
+    use HasStudies;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['code','name','state','cycle_id','order'];
+
 }
