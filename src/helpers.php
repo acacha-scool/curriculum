@@ -169,11 +169,33 @@ if (! function_exists('seed_specialities')) {
     {
         //Depends on nothing
         first_or_create_speciality('CAS' , 'Curs Accés Grau Superior', '');
-        first_or_create_speciality('505' , 'For. Org. Lab.', '');
         first_or_create_speciality('AN' , 'Anglès', '');
         first_or_create_speciality('MA' , 'Matemàtiques', '');
+        first_or_create_speciality('501' , 'Ad. Empreses', '');
+        first_or_create_speciality('504' , 'C. civ. edif.', '');
+        first_or_create_speciality('505' , 'For. Org. Lab.', '');
         first_or_create_speciality('507' , 'Informàtica', '');
-        //TODO
+        first_or_create_speciality('508' , 'Int. Sociocom.', '');
+        first_or_create_speciality('510' , 'Org. Gest. Com.', '');
+        first_or_create_speciality('512' , 'O. P. Fab. Mec.', '');
+        first_or_create_speciality('513' , 'Org. Proj. Energ.', '');
+        first_or_create_speciality('517' , 'P. Diag. Clínic', '');
+        first_or_create_speciality('518' , 'Proce. Sanitaris', '');
+        first_or_create_speciality('522' , 'P. Arts gràfiques', '');
+        first_or_create_speciality('524' , 'Sist. Electro.', '');
+        first_or_create_speciality('525' , 'S. Elect. Auto.', '');
+        first_or_create_speciality('602' , 'Eq.Electrònic', '');
+        first_or_create_speciality('605' , 'I. eq.t', '');
+        first_or_create_speciality('606' , 'Ins. Electro.', '');
+        first_or_create_speciality('611' , 'Mec. Màquines', '');
+        first_or_create_speciality('612' , 'Of. Pr. Constr.', '');
+        first_or_create_speciality('619' , 'Pro. Clíni. Ortop.', '');
+        first_or_create_speciality('620' , 'P. Sanit. Assis.', '');
+        first_or_create_speciality('621' , 'Proc. Comerc.', '');
+        first_or_create_speciality('622' , 'P. Gest. Adm.', '');
+        first_or_create_speciality('623' , 'Preimp. Digital', '');
+        first_or_create_speciality('625' , 'Serv. Comunit.', '');
+        first_or_create_speciality('627' , 'Sist. Apli. Infor.', '');
     }
 }
 
