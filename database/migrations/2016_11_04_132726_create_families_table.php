@@ -24,11 +24,17 @@ class CreateFamiliesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('family_study', function (Blueprint $table) {
+        Schema::create('family_speciality', function (Blueprint $table) {
             $table->integer('family_id')->unsigned();
-            $table->integer('study_id')->unsigned();
+            $table->integer('speciality_id')->unsigned();
+
+            $table->unique(['family_id', 'speciality_id']);
+
+            $table->foreign('family_id')->references('id')->on('families')->onDelete('cascade');
+            $table->foreign('speciality_id')->references('id')->on('specialities')->onDelete('cascade');
+
             $table->timestamps();
-            $table->unique(['family_id', 'study_id']);
+
         });
     }
 
@@ -40,6 +46,6 @@ class CreateFamiliesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('families');
-        Schema::dropIfExists('family_study');
+        Schema::dropIfExists('family_speciality');
     }
 }
