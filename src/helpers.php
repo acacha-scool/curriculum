@@ -5,8 +5,10 @@ use Scool\Curriculum\Models\Course;
 use Scool\Curriculum\Models\Department;
 use Scool\Curriculum\Models\Family;
 use Scool\Curriculum\Models\Law;
+use Scool\Curriculum\Models\Module;
 use Scool\Curriculum\Models\Speciality;
 use Scool\Curriculum\Models\Study;
+use Scool\Curriculum\Models\Submodule;
 
 if (! function_exists('seed_laws')) {
     /**
@@ -440,7 +442,7 @@ if (! function_exists('seed_departments')) {
 if (! function_exists('first_or_create_classroom()')) {
 
     /**
-     * Create classroom or returns the already exiting one.
+     * Create classroom or returns the already existing one.
      *
      * @return mixed
      */
@@ -581,7 +583,7 @@ if (! function_exists('seed_classrooms()')) {
 if (! function_exists('first_or_create_course()')) {
 
     /**
-     * Create course or returns the already exiting one.
+     * Create course or returns the already existing one.
      *
      * @param $code
      * @param $name
@@ -688,29 +690,125 @@ if (! function_exists('seed_courses()')) {
     }
 }
 
-if (! function_exists('seed_modules()')) {
+if (! function_exists('first_or_create_module()')) {
 
     /**
-     * Seed submodules.
+     * Create module or returns the already existing one.
      *
-     * @return mixed
+     * @param $code
+     * @param $shortname
+     * @param $name
+     * @param $description
+     * @param $state
+     * @param $order
+     * @param $type
+     * @return $this|\Illuminate\Database\Eloquent\Model|static
      */
-    function seed_modules()
+    function first_or_create_module($code, $shortname, $name, $description, $state, $order, $type)
     {
-        //TODO
+        try {
+            $module = Module::create([
+                'code' => $code,
+                'shortname' => $shortname,
+                'name' => $name,
+                'description' => $description,
+                'state' => $state,
+                'order' => $order,
+                'type' => $type,
+            ]);
+            return $module;
+        } catch (Illuminate\Database\QueryException $e) {
+            return Module::where([
+                ['code', '=', $code]
+            ]);
+        }
     }
 }
 
-if (! function_exists('seed_submodules()')) {
+if (! function_exists('first_or_create_submodule()')) {
+
+    /**
+     * Create submodule or returns the already existing one.
+     */
+    function first_or_create_submodule($code, $shortname, $name, $description, $state, $order, $type, $module, $classrooms)
+    {
+        try {
+            $submodule = Submodule::create([
+                'code' => $code,
+                'shortname' => $shortname,
+                'name' => $name,
+                'description' => $description,
+                'state' => $state,
+                'order' => $order,
+                'type' => $type,
+                'module_id' => $module
+            ]);
+            $submodule->classrooms()->sync($classrooms);
+            return $submodule;
+        } catch (Illuminate\Database\QueryException $e) {
+            return Submodule::where([
+                ['code', '=', $code]
+            ]);
+        }
+    }
+}
+
+if (! function_exists('obtainModuleIdByCode()')) {
+
+    /**
+     * Obtain module id by code.
+     *
+     * @return mixed
+     */
+    function obtainModuleIdByCode($code)
+    {
+        return Module::where('code', $code)->first()->id;
+    }
+}
+
+if (! function_exists('obtainClassroomIdByCode()')) {
+
+    /**
+     * Obtain classroom id by code.
+     *
+     * @return mixed
+     */
+    function obtainClassroomIdByCode($code)
+    {
+        return Classroom::where('code', $code)->first()->id;
+    }
+}
+
+
+
+if (! function_exists('seed_submodules_grouped_by_module()')) {
 
     /**
      * Seed submodules.
      *
      * @return mixed
      */
-    function seed_submodules()
+    function seed_submodules_grouped_by_module()
     {
-        //TODO
+        first_or_create_module("ACO_MP01","MP01","Dinamització del punt de venda","","active",1,"Normal");
+//        function first_or_create_submodule($code, $shortname, $name, $description, $state, $order, $type)
+        first_or_create_submodule("ACO_MP01_UF1","UF1","Organització de l'espai comercial i gestió de l'àrea expositiva","","active",1,"Normal",obtainModuleIdByCode("ACO_MP01"), [ obtainClassroomIdByCode("1ACO") ]);
+
+
+
+
+        first_or_create_submodule("UF1","UF1","Organització de l'espai comercial i gestió de l'àrea expositiva","Normal");
+        first_or_create_submodule("UF2","UF2","Aparadorisme: Muntatge i manteniment","Normal");
+        first_or_create_submodule("UF3","UF3","Accions promocionals en el punt de venda","Normal");
+        first_or_create_module("ACO_MP02","MP02","Gestió de compres","","active",2,"Normal");
+        first_or_create_submodule("UF1","UF1","Aprovisionament","Normal");
+        first_or_create_submodule("UF2","UF2","Procés de compra i seguiment","Normal");
+        first_or_create_module("ACO_MP03","MP03","Gestió d'un petit comerç","","active",3,"Normal");
+        first_or_create_submodule("UF1","UF1","Emprenedoria i creació d'un petit comerç","Normal");
+        first_or_create_submodule("UF2","UF2","Gestió econòmica d'un petit comerç","Normal");
+        first_or_create_submodule("UF3","UF3","Procés administratiu, comptable i fiscal","Normal");
+
+
     }
 }
 
@@ -730,7 +828,6 @@ if (! function_exists('seed_curriculum()')) {
         seed_departments();
         seed_courses();
         seed_classrooms();
-        seed_modules();
-        seed_submodules();
+        seed_submodules_grouped_by_module();
     }
 }

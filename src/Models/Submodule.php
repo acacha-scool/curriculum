@@ -3,11 +3,6 @@
 namespace Scool\Curriculum\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Scool\Curriculum\Traits\HasCourses;
-use Scool\Curriculum\Traits\HasModules;
-use Scool\Curriculum\Traits\HasSpecialities;
-use Scool\Curriculum\Traits\HasClassrooms;
-use Scool\Curriculum\Traits\HasManyStudies;
 
 /**
  * Class Submodule.
@@ -16,14 +11,13 @@ use Scool\Curriculum\Traits\HasManyStudies;
  */
 class Submodule extends Model
 {
-    use HasSpecialities, HasModules, HasClassrooms, HasCourses, HasManyStudies;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['name', 'order' , 'total_hours', 'week_hours', 'start_date', 'finish_date'];
+    protected $fillable = ['code', 'shortname', 'name', 'description', 'state', 'module_id', 'order' , 'total_hours', 'week_hours', 'start_date', 'finish_date'];
 
     /**
      * Get the type os study submodule.
@@ -31,5 +25,13 @@ class Submodule extends Model
     public function type()
     {
         return $this->belongsTo(SubmoduleType::class);
+    }
+
+    /**
+     * Get the study submodule classrooms.
+     */
+    public function classrooms()
+    {
+        return $this->belongsToMany(Classroom::class);
     }
 }

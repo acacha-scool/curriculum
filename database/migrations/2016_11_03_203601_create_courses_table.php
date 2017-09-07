@@ -21,7 +21,7 @@ class CreateCoursesTable extends Migration
             $table->string('code')->unique();
             $table->string('name')->unique();
             $table->string('state');
-            $table->tinyInteger('order');
+            $table->unsignedTinyInteger('order');
             $table->string('cycle_id')->unsigned()->nullable();
             $table->timestamps();
         });

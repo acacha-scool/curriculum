@@ -38,4 +38,5 @@ class Classroom extends Model
     {
         return $this->belongsTo(Location::class);
     }
+
 }
