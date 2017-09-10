@@ -770,6 +770,7 @@ if (! function_exists('obtainClassroomIdByCode()')) {
      */
     function obtainClassroomIdByCode($code)
     {
+        dump($code);
         return Classroom::where('code', $code)->first()->id;
     }
 }
