@@ -18,7 +18,7 @@ class Family extends Model
      */
     public function specialities()
     {
-        return $this->belongsToMany(Speciality::class);
+        return $this->belongsToMany(Speciality::class)->withTimestamps();
     }
 
 }

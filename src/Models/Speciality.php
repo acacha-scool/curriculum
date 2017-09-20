@@ -16,7 +16,7 @@ class Speciality extends Model
      *
      * @var array
      */
-    protected $fillable = ['code', 'name', 'description'] ;
+    protected $fillable = ['code', 'shortname', 'name', 'description'] ;
 
     /**
      * The teachers that belongs to the speciality.
@@ -41,4 +41,5 @@ class Speciality extends Model
     {
         return $this->belongsToMany(Family::class);
     }
+
 }

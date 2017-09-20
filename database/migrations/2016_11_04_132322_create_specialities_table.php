@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateSpecialitiesTable.
+ */
 class CreateSpecialitiesTable extends Migration
 {
     /**
@@ -16,8 +19,10 @@ class CreateSpecialitiesTable extends Migration
         Schema::create('specialities', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('code')->unique();
-            $table->string('name');
+            $table->string('shortname');
+            $table->string('name')->nullable();
             $table->string('description')->nullable();
+
             $table->timestamps();
         });
 

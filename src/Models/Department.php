@@ -23,6 +23,7 @@ class Department extends Model
      */
     public function families()
     {
-        return $this->belongsToMany(Family::class);
+        return $this->belongsToMany(Family::class)->withTimestamps();
     }
+
 }

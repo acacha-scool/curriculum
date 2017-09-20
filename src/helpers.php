@@ -153,17 +153,19 @@ if (! function_exists('first_or_create_speciality')) {
      * Create speciality if not exists and return new o already existing speciality.
      *
      * @param $code
+     * @param $shortname
      * @param $name
      * @param $description
-     * @return $this|\Illuminate\Database\Eloquent\Model|static
+     * @return $this|\Illuminate\Database\Eloquent\Model
      */
-    function first_or_create_speciality($code, $name, $description)
+    function first_or_create_speciality($code, $shortname , $name, $description)
     {
         try {
             $speciality = Speciality::create([
                 'code' => $code,
+                'shortname' => $shortname,
                 'name' => $name,
-                'description' => $description,
+                'description' => $description
             ]);
             return $speciality;
         } catch (Illuminate\Database\QueryException $e) {
@@ -171,6 +173,17 @@ if (! function_exists('first_or_create_speciality')) {
                 ['code', '=', $code]
             ]);
         }
+    }
+}
+
+if (! function_exists('obtainDepartmentCodeBySpecialityCode')) {
+    /**
+     * Obtain department code by speciality code.
+     *
+     * @param $speciality
+     */
+    function obtainDepartmentCodeBySpecialityCode($speciality) {
+        Speciality::where('code',$speciality)->department()->id;
     }
 }
 
@@ -183,36 +196,35 @@ if (! function_exists('seed_specialities')) {
      */
     function seed_specialities()
     {
-        //Depends on nothing
-        // TODO: name->shortname and add name as full name!
-        first_or_create_speciality('CAS' , 'Curs Accés Grau Superior', '');
-        first_or_create_speciality('AN' ,  'Anglès', '');
-        first_or_create_speciality('MA' ,  'Matemàtiques', '');
-        first_or_create_speciality('501' , 'Ad. Empreses', '');
-        first_or_create_speciality('504' , 'C. civ. edif.', '');
-        first_or_create_speciality('505' , 'For. Org. Lab.', '');
-        first_or_create_speciality('507' , 'Informàtica', '');
-        first_or_create_speciality('508' , 'Int. Sociocom.', '');
-        first_or_create_speciality('510' , 'Org. Gest. Com.', '');
-        first_or_create_speciality('512' , 'O. P. Fab. Mec.', '');
-        first_or_create_speciality('513' , 'Org. Proj. Energ.', '');
-        first_or_create_speciality('517' , 'P. Diag. Clínic', '');
-        first_or_create_speciality('518' , 'Proce. Sanitaris', '');
-        first_or_create_speciality('522' , 'P. Arts gràfiques', '');
-        first_or_create_speciality('524' , 'Sist. Electro.', '');
-        first_or_create_speciality('525' , 'S. Elect. Auto.', '');
-        first_or_create_speciality('602' , 'Eq.Electrònic', '');
-        first_or_create_speciality('605' , 'I. eq.t', '');
-        first_or_create_speciality('606' , 'Ins. Electro.', '');
-        first_or_create_speciality('611' , 'Mec. Màquines', '');
-        first_or_create_speciality('612' , 'Of. Pr. Constr.', '');
-        first_or_create_speciality('619' , 'Pro. Clíni. Ortop.', '');
-        first_or_create_speciality('620' , 'P. Sanit. Assis.', '');
-        first_or_create_speciality('621' , 'Proc. Comerc.', '');
-        first_or_create_speciality('622' , 'P. Gest. Adm.', '');
-        first_or_create_speciality('623' , 'Preimp. Digital', '');
-        first_or_create_speciality('625' , 'Serv. Comunit.', '');
-        first_or_create_speciality('627' , 'Sist. Apli. Infor.', '');
+        first_or_create_speciality("501", "Ad. Empreses", "", "");
+        first_or_create_speciality("504", "C. civ. edif.", "", "");
+        first_or_create_speciality("505", "For. Org. Lab.", "", "");
+        first_or_create_speciality("507", "Informàtica", "", "");
+        first_or_create_speciality("508", "Int. Sociocom.", "", "");
+        first_or_create_speciality("510", "Org. Gest. Com.", "", "");
+        first_or_create_speciality("512", "O. P. Fab. Mec.", "", "");
+        first_or_create_speciality("513", "Org. Proj. energ.", "", "");
+        first_or_create_speciality("517", "P. Diag. Clínic", "", "");
+        first_or_create_speciality("518", "Proce. Sanitaris", "", "");
+        first_or_create_speciality("522", "P. Arts gràfiqu.", "", "");
+        first_or_create_speciality("524", "Sist. Electro.", "", "");
+        first_or_create_speciality("525", "S. Elect. Auto.", "", "");
+        first_or_create_speciality("602", "Eq.Electrònic", "", "");
+        first_or_create_speciality("605", "I. eq.t", "", "");
+        first_or_create_speciality("606", "Ins. Electro.", "", "");
+        first_or_create_speciality("611", "Mec. Màquines", "", "");
+        first_or_create_speciality("612", "Of. Pr. Constr.", "", "");
+        first_or_create_speciality("619", "Pro. Clíni. Ortop.", "", "");
+        first_or_create_speciality("620", "P. Sanit. Assis.", "", "");
+        first_or_create_speciality("621", "Proc. Comerc.", "", "");
+        first_or_create_speciality("622", "P. Gest. Adm.", "", "");
+        first_or_create_speciality("623", "Preimp. Digital", "", "");
+        first_or_create_speciality("625", "Serv. Comunit.", "", "");
+        first_or_create_speciality("627", "Sist. Apli. Infor", "", "");
+        first_or_create_speciality("AN", "Anglès", "", "");
+        first_or_create_speciality("CAS", "Castellà", "", "");
+        first_or_create_speciality("MA", "Matemàtiques", "", "");
+
     }
 }
 
@@ -260,6 +272,18 @@ if (! function_exists('obtainSpecialityIdByCode')) {
     }
 }
 
+if (! function_exists('obtainDepartmentIdBySpecialityCode')) {
+    /**
+     * Obtain department id by speciality code.
+     *
+     * @param $speciality
+     * @return mixed
+     */
+    function obtainDepartmentIdBySpecialityCode($speciality) {
+        return obtainSpecialityIdByCode($speciality)->department->id;
+    }
+}
+
 if (! function_exists('seed_families')) {
 
     /**
@@ -297,24 +321,18 @@ if (! function_exists('seed_families')) {
             obtainSpecialityIdByCode('522'),
             obtainSpecialityIdByCode('623')
         ]);
-        //TODO subdivide ok
         first_or_create_family('ELE','Electricitat' , "Família d'electricitat i electrònica", [
             obtainSpecialityIdByCode('602'),
             obtainSpecialityIdByCode('605'),
-            obtainSpecialityIdByCode('606')
         ]);
-        //TODO subdivide ok
         first_or_create_family('ENE','Energia' , "Energia i aigua", [
-            obtainSpecialityIdByCode('602'),
-            obtainSpecialityIdByCode('605'),
             obtainSpecialityIdByCode('606')
         ]);
 
-        //Todo: check if is ok!!1
         first_or_create_family('MEC','Mecànica' , "Familia de fabricació mecànica", [
             obtainSpecialityIdByCode('512'),
         ]);
-        //Todo: check if is ok!!1
+
         first_or_create_family('MAN','Manteniment' , "Familia d'instal·lació i manteniment", [
             obtainSpecialityIdByCode('611'),
         ]);
@@ -381,6 +399,18 @@ if (! function_exists('first_or_create_department')) {
                 ['code', '=', $code]
             ]);
         }
+    }
+}
+
+if (! function_exists('obtainDepartmentIdByCode')) {
+
+    /**
+     * Obtain deparment id by code.
+     * @param $code
+     * @return mixed
+     */
+    function obtainDepartmentIdByCode($code) {
+        return Department::where('code',$code)->get()->first()->id;
     }
 }
 
@@ -773,8 +803,6 @@ if (! function_exists('obtainClassroomIdByCode()')) {
         return Classroom::where('code', $code)->first()->id;
     }
 }
-
-
 
 if (! function_exists('seed_submodules_grouped_by_module()')) {
 
