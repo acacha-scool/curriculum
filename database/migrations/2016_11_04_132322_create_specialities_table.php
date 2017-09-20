@@ -22,6 +22,10 @@ class CreateSpecialitiesTable extends Migration
             $table->string('shortname');
             $table->string('name')->nullable();
             $table->string('description')->nullable();
+            $table->integer('family_id')->unsigned()->nullable();
+
+            $table->foreign('family_id')->references('id')->on('families')
+                ->onDelete('cascade');
 
             $table->timestamps();
         });

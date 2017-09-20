@@ -21,21 +21,13 @@ class CreateFamiliesTable extends Migration
             $table->string('code')->unique();
             $table->string('shortname')->unique();
             $table->string('name')->unique();
+            $table->integer('department_id')->unsigned()->nullable();
+
+            $table->foreign('department_id')->references('id')->on('departments')
+                ->onDelete('cascade');
             $table->timestamps();
         });
 
-        Schema::create('family_speciality', function (Blueprint $table) {
-            $table->integer('family_id')->unsigned();
-            $table->integer('speciality_id')->unsigned();
-
-            $table->unique(['family_id', 'speciality_id']);
-
-            $table->foreign('family_id')->references('id')->on('families')->onDelete('cascade');
-            $table->foreign('speciality_id')->references('id')->on('specialities')->onDelete('cascade');
-
-            $table->timestamps();
-
-        });
     }
 
     /**
@@ -46,6 +38,5 @@ class CreateFamiliesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('families');
-        Schema::dropIfExists('family_speciality');
     }
 }

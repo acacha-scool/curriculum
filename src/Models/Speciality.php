@@ -35,11 +35,11 @@ class Speciality extends Model
     }
 
     /**
-     * The families that uses this speciality.
+     * The family related to this speciality.
      */
-    public function families()
+    public function family()
     {
-        return $this->belongsToMany(Family::class);
+        return $this->belongsTo(Family::class);
     }
 
 }

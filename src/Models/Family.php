@@ -18,7 +18,15 @@ class Family extends Model
      */
     public function specialities()
     {
-        return $this->belongsToMany(Speciality::class)->withTimestamps();
+        return $this->hasMany(Speciality::class);
+    }
+
+    /**
+     * The department related to that family.
+     */
+    public function department()
+    {
+        return $this->belongsTo(Department::class);
     }
 
 }
