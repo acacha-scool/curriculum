@@ -22,8 +22,11 @@ class CreateCoursesTable extends Migration
             $table->string('name')->unique();
             $table->string('state');
             $table->unsignedTinyInteger('order');
-            $table->string('cycle_id')->unsigned()->nullable();
+            $table->integer('cycle_id')->unsigned()->nullable();
             $table->timestamps();
+
+            $table->foreign('cycle_id')->references('id')->on('cycles')
+                ->onDelete('cascade');
         });
 
         Schema::create('course_study', function (Blueprint $table) {
@@ -31,6 +34,11 @@ class CreateCoursesTable extends Migration
             $table->integer('study_id')->unsigned();
             $table->timestamps();
             $table->unique(['course_id', 'study_id']);
+
+            $table->foreign('course_id')->references('id')->on('courses')
+                ->onDelete('cascade');
+            $table->foreign('study_id')->references('id')->on('studies')
+                ->onDelete('cascade');
         });
     }
 

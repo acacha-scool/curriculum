@@ -171,7 +171,7 @@ if (! function_exists('first_or_create_speciality')) {
         } catch (Illuminate\Database\QueryException $e) {
             return Speciality::where([
                 ['code', '=', $code]
-            ]);
+            ])->first();
         }
     }
 }

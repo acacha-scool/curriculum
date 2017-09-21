@@ -24,6 +24,11 @@ class CreateStudiesTable extends Migration
             $table->string('state')->nullable();
             $table->integer('replaces_study_id')->unsigned()->nullable();
             $table->timestamps();
+
+            $table->foreign('law_id')->references('id')->on('laws')
+                ->onDelete('cascade');
+            $table->foreign('replaces_study_id')->references('id')->on('studies')
+                ->onDelete('cascade');
         });
 
     }

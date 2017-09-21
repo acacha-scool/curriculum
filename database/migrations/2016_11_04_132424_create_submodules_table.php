@@ -33,6 +33,8 @@ class CreateSubmodulesTable extends Migration
             $table->date('end_date')->nullable();
 
             $table->foreign('module_id')->references('id')->on('modules')->onDelete('cascade');
+            $table->foreign('type')->references('id')->on('submodule_types')->onDelete('cascade');
+
 
             $table->timestamps();
         });
@@ -46,6 +48,17 @@ class CreateSubmodulesTable extends Migration
             $table->foreign('submodule_id')->references('id')->on('submodules')->onDelete('cascade');
         });
 
+        Schema::create('speciality_submodule', function (Blueprint $table) {
+            $table->integer('speciality_id')->unsigned();
+            $table->integer('submodule_id')->unsigned();
+            $table->timestamps();
+            $table->unique(['speciality_id', 'submodule_id']);
+            $table->foreign('submodule_id')->references('id')->on('submodules')
+                ->onDelete('cascade');
+            $table->foreign('speciality_id')->references('id')->on('specialities')
+                ->onDelete('cascade');
+        });
+
     }
 
     /**
@@ -57,5 +70,6 @@ class CreateSubmodulesTable extends Migration
     {
         Schema::dropIfExists('submodules');
         Schema::dropIfExists('classroom_submodule');
+        Schema::dropIfExists('speciality_submodule');
     }
 }

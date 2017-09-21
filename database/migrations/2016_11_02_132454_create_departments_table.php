@@ -23,6 +23,10 @@ class CreateDepartmentsTable extends Migration
             $table->string('name');
             $table->integer('parent')->unsigned()->nullable();
             $table->integer('location_id')->unsigned();
+
+            $table->foreign('location_id')->references('id')->on('locations')
+                ->onDelete('cascade');
+
             $table->timestamps();
         });
 
